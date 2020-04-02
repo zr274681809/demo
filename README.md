@@ -6,6 +6,7 @@
   - 实现用户登陆，注册，设置用户基本信息包括昵称，年龄，头像，爱好等等
   - 实现用户发送自身动态信息，包括文字、图片以及视频动态信息的发表，类似微信朋友圈
   - 实现用户互相评论、点赞，参考微信朋友圈的评论和点赞。
+  - 实现好友查询，添加好友，按好友分组显示动态信息
   
 ## 数据库表 
   - user   用户表，保存了用户相关信息
@@ -24,7 +25,7 @@
 - Content 指的是内容数据，需要将其处理成Josn的格式加到Report后面一起返回
 - 因此，BackInfo返回内容 = Report + Content 
 - 若需要传回必要数据，返回Report + Content 
-- 若无有效数据或者不需要额外的回传参数，仅返回Report
+- 若无有效数据或者不需要额外的回传数据，仅返回Report
 
 ### 登录Api
 - @GET("api/user")
@@ -82,6 +83,7 @@
 - Call<Model.BackInfo> addUser()
 - 参数1: @Path("userAccount") String
 - 参数2：@Query("myAccount") String
+- 参数3：@Query("groupId") Int 设置所属分组，默认为0
   - POST请求，userAccount为对方账号，myAccount为发起者账号，返回{Model.BackInfo}
   - 成功,设置Model.BackInfo.describe = "TC801"
   - 异常失败,设置Model.BackInfo.describe = "TC802"
@@ -93,8 +95,9 @@
 ### 参数说明
 - groupId表示用户所属分组
 - when(groupId)
-- == 0 -> 属于根分组，所有用户都可见
-- == others -> 属于用户自定义分组，仅该分组的人可见 
+- == -1 -> 属于根分组，所有用户都可见
+- == 0 -> 属于好友分组，所有好友都可见
+- == others -> 属于用户自定义好友分组，仅该分组的人可见 
 
 ### 图文或者视频文字上传API
 - @PUT("api/user/dynamic")
@@ -117,19 +120,16 @@
   - 无此账号，设置Model.BackInfo.describe = "TC503"后返回
  
 ### 查询动态API
-- @GET("api/user/{groupId}/dynamic/{account}")
-- Call<List<PersonDynamic>> getDynamics() 
-- 参数1：@Query("limitNumbers") Int 
-- 参数2：@Query("dynamicId") Int
-- 参数3: @Path("groupId") Int   
-- 参数4: @Path("account") String  
-- 参数使用说明
+- @GET("api/user/dynamic")
+- Call<Model.BackInfo> getDynamics() 
+- 参数：@QueryMap  Map<String,String>  queryDynamicMap   
+- 参数包含内容：{account="value"},{limitNumbers="value"},{groupId="value"},{dynamic="value"}
+- 当{dynamic.isEmpty == false}时，查询指定动态内容 
+- 否则：
 - 当{account.isEmpty == true}时，查询指定groupId的所有用户并按时间排序的limitNumbers条动态 
-- 当{account.isEmpty == false}时，查询指定groupId的account用户的按时间排序的limitNumbers条动态
-  - GET请求，获取所属groupId的指定account好友的 limitNumbers 条动态，返回{List<PersonDynamic>}
-  - groupID
-  - 成功设置PersonDynamic.backInfo = "TC601"后返回
-  - 无次
+- 当{account.isEmpty == false}时，查询指定groupId的account用户的按时间排序的limitNumbers条动态  
+  - GET请求，返回{Model.BackInfo}
+  - 成功，设置Model.BackInfo.describe = "TC601" + Content后返回
+  - 失败，设置Model.BackInfo.describe = "TC602"后返回
+  - Content包含了指定数量的PersonDynamic表中的所有内容
  
-## 评论模块
-
