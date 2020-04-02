@@ -59,11 +59,11 @@
   
   
 ### 更新用户信息Api
-- @PUT("api/user/{account}")
+- @POST("api/user/{account}")
 - Call<Model.BackInfo> updateUser()
 - 参数1：@Path("account") String
 - 参数2：@PartMap Map<String,RequestBody> contentArgs
-   - PUT请求，支持图文同时上传，返回{Model.BackInfo} 
+   - POST请求，支持图文同时上传，返回{Model.BackInfo} 
    - 成功，设置Model.BackInfo.describe = "TC301"后返回
    - 异常失败,设置Model.BackInfo.describe = "TC302"后返回
    - 无此账号,设置Model.BackInfo.describe = "TC303"后返回
@@ -96,19 +96,21 @@
 ### 动态模块主要实现包括用户图文或者视频内容的上传和删除以及查询，发布内容按时间排序，查询内容按发布时间获取
 
 ### 参数说明
-- groupId表示用户所属分组
-- when(groupId)
-- == -1 -> 属于根分组，所有用户都可见
-- == 0 -> 属于好友分组，所有好友都可见
-- == others -> 属于用户自定义好友分组，仅该分组的人可见 
+- permissionId表示朋友圈访问权限类型
+- when(permissionId)
+- == 0 -> 所有用户都可见
+- == 1 -> 指定好友可见
+- == 2 -> 除了指定好友，其它都可见 
 
 ### 图文或者视频文字上传API
-- @PUT("api/user/dynamic")
-- Call<Model.BackInfo> onLoadDynamic()
+- @POST("api/user/dynamic")
+- Call<Model.BackInfo> upLoadDynamic()
 - 参数1：@Query("account") String
-- 参数2：@Query("groupId") Int
+- 参数2：@QueryMap Map<String,String> permissionArgs 
 - 参数3：@PartMap Map<String,RequestBody> contentArgs
-  - PUT请求，支持图文或者视频文字同时上传，返回<Model.BackInfo>
+- permissionArgs表示访问权限列表,user_n表示指定的用户，user_n可以没有，则表示均可见
+- {permissionId="权限类型",user_1="",user_2="",...}
+  - POST请求，支持图文或者视频文字同时上传，返回<Model.BackInfo>
   - 成功，设置Model.BackInfo.describe = "TC601"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC602"后返回
   - 无此账号，设置Model.BackInfo.describe = "TC603"后返回
@@ -156,5 +158,6 @@
 - 参数:@QueryMap Map<String,String> queryCommentsArgs
 - 参数queryCommentsArgs包含如下：
 - {groupId="你自己的分组"}
+
   ## 点赞模块
  
