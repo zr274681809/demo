@@ -8,6 +8,7 @@
   - 实现用户互相评论、点赞，参考微信朋友圈的评论和点赞。
   - 实现好友查询，添加好友，按好友分组显示动态信息
   
+  
 ## 数据库表 
   - user   用户表，保存了用户相关信息
   - userRelation 用户关系表，保存了用户之间的相互关系
@@ -17,13 +18,14 @@
   - DynamicAccessAllow 朋友圈开放表
   - like 朋友点赞表
   
+  
 ### 数据库相关的模块见data/db/entity.kt
 
 ## 用户模块 
 
 ### 参数说明 
 - Model.BackInfo.describe返回值分为两部分
-- {Report+Content}字符串
+- {Report + Content}字符串
 - Report 指的是处理结果
 - Content 指的是内容数据，需要将其处理成Josn的格式加到Report后面一起返回
 - 因此，BackInfo返回内容 = Report + Content 
@@ -104,37 +106,37 @@
 - == 1 -> 指定好友可见
 - == 2 -> 除了指定好友，其它都可见 
 
+
 ### 图文或者视频文字上传API
 - @POST("api/user/dynamic")
 - Call<Model.BackInfo> upLoadDynamic()
 - 参数1：@Query("account") String
 - 参数2：@QueryMap Map<String,String> permissionArgs 
 - 参数3：@PartMap Map<String,RequestBody> contentArgs
-- permissionArgs表示访问权限列表,user_n表示指定的用户，user_n可以没有，则表示均可见
+- permissionArgs表示访问权限列表,user_n表示指定的用户，user_n如果没有，则表示均可见
 - {permissionId="权限类型",user_1="",user_2="",...}
+- contentArgs表示内容列表，包含图片、文字、视频上传的RequestBody
   - POST请求，支持图文或者视频文字同时上传，返回<Model.BackInfo>
   - 成功，设置Model.BackInfo.describe = "TC601"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC602"后返回
   - 无此账号，设置Model.BackInfo.describe = "TC603"后返回
  
 ### 删除动态API
-- @DELETE("api/user/dynamic/{account}")
+- @DELETE("api/user/dynamic/{dynamicId}")
 - Call<Model.BackInfo> deleteDynamic()
-- 参数：@Path("account") String
+- 参数：@Path("dynamicId") Int
   - DELETE请求，删除动态，返回<Model.BackInfo>
   - 成功，设置Model.BackInfo.describe = "TC701"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC702"后返回
-  - 无此账号，设置Model.BackInfo.describe = "TC703"后返回
  
+
 ### 查询动态API
 - @GET("api/user/dynamic")
 - Call<Model.BackInfo> getDynamics() 
 - 参数：@QueryMap  Map<String,String>  queryDynamicArgs   
-- 参数包含内容：{account="用户名"},{limitNumbers="动态数量"},{groupId="分组ID"},{dynamicId="选中的动态所属id"}
-- 当{dynamicId.isEmpty == false}时，查询指定动态内容 
-- 否则：
-- 当{account.isEmpty == true}时，查询指定groupId的所有用户并按时间排序的limitNumbers条动态 
-- 当{account.isEmpty == false}时，查询指定groupId的account用户的按时间排序的limitNumbers条动态  
+- 参数包含内容：{account="用户名"},{limitNumbers="动态数量"}
+- 当{account.isEmpty == true}时，查询所有好友用户的按时间排序的limitNumbers条动态 
+- 当{account.isEmpty == false}时，查询account用户的按时间排序的limitNumbers条动态  
   - GET请求，返回{Model.BackInfo}
   - 成功，设置Model.BackInfo.describe = "TC801" + Content后返回
   - 失败，设置Model.BackInfo.describe = "TC802"后返回
@@ -148,8 +150,8 @@
 - 参数1: @Body("message") String
 - 参数2: @QueryMap Map<String,String> commentsArgs
 - 参数commentsArgs包含
-- {dynamicId="评论哪一条",groupId="属于什么分组" userNickName="评论人昵称"}
-- {friendNickName="评论谁(昵称)的动态",content="内容"，time="评论时间"}
+- {dynamicId="评论哪一条", userNickName="评论人的昵称"}
+- {friendNickName="被评论人的昵称"，time="评论时间"}
   - POST请求，返回{Model.BackInfo}
   - 成功，设置Model.BackInfo.describe = "TC901"后返回
   - 失败,设置Model.BackInfo.describe = "TC902" 后返回
@@ -157,9 +159,14 @@
 ### 评论查询APi 
 - @GET("api/user/comments")
 - Call<Model.BackInfo> queryComments()
-- 参数:@QueryMap Map<String,String> queryCommentsArgs
-- 参数queryCommentsArgs包含如下：
-- {groupId="你自己的分组"}
-
+- 参数: @QueryMap queryCommentsArgs
+- queryCommentsArgs主要有{myAccount="我的账号"，dynamicId="查询的动态id"，limitNumbers="获取评论的数量"}
+  - 通过查询访问控制列表，获得可访问的用户账户列表,然后查询属于dynamicId的评论人
+  - GET请求，返回{Model.BackInfo}
+  - 成功，设置Model.BackInfo.describe = "TC1001" + Content 后返回
+  - 失败，设置Model.BackInfo.describe = "TC1002" 后返回
+  - Content为CommentsMsg中的相关数据内容
+  
+  
   ## 点赞模块
  
