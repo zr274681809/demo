@@ -20,24 +20,24 @@
   - 无此账号，设置User.backInfo = "TC003" 并返回
  
 ### 注册Api 
- - @POST("api/user")
- - fun register(@Body userRegister: Model.UserRegister):Call<User>
+- @POST("api/user")
+- fun register(@Body userRegister: Model.UserRegister):Call<User>
   - POST请求，打包userRegister数据发送至服务器，返回值为{User}
   - 注册成功，设置User.backInfo = "TC101"后返回
   - 异常失败，设置User.backInfo = "TC102"后返回
   
 ### 注销Api
- - @DELETE("api/user/{account}")
- - fun logout(@Path("account") account:String):Call<Model.BackInfo>
+- @DELETE("api/user/{account}")
+- fun logout(@Path("account") account:String):Call<Model.BackInfo>
   - DELETE请求，传入account,返回{Model.BackInfo}
   - 注销成功，设置Model.BackInfo.describe = "TC201"后返回
   - 异常失败，设置Model.Backinfo.describe = "TC202"后返回
   - 无此账号，设置Model.backInfo.describe = "TC203"后返回
   
 ### 更新用户信息Api
- - @PUT("api/user/{account}")
- - Call<Model.BackInfo> updateUser()
- - 参数1：@Path(String account)  参数2： @PartMap Map<String,RequestBody> content
+- @PUT("api/user/{account}")
+- Call<Model.BackInfo> updateUser()
+- 参数1：@Path(String account)  参数2： @PartMap Map<String,RequestBody> content
    - PUT请求，图文文字同时上传，返回{Model.BackInfo} 
    - 成功，设置Model.BackInfo.describe="TC301"后返回
    - 异常失败,设置Model.BackInfo.describe = "TC302"后返回
@@ -51,28 +51,29 @@
 - Call<Model.BackInfo> onLoadDynamic()
 - 参数1：@Path("account") (String account) 参数2：@path("groupId") Int groupId
 - 参数3： @PartMap Map<String,RequestBody> content
- - PUT请求，支持图文或者视频文字上传，返回<Model.BackInfo>
- - 成功，设置Model.BackInfo.describe = "TC401"后返回
- - 异常失败，设置Model.BackInfo.describe = "TC402"后返回
- - 无此账号，设置Model.BackInfo.describe = "TC403"后返回
+  - PUT请求，支持图文或者视频文字上传，返回<Model.BackInfo>
+  - 成功，设置Model.BackInfo.describe = "TC401"后返回
+  - 异常失败，设置Model.BackInfo.describe = "TC402"后返回
+  - 无此账号，设置Model.BackInfo.describe = "TC403"后返回
  
 ### 删除动态API
 -@DELETE("api/user/dynamic/{account}")
 -Call<Model.BackInfo> deleteDynamic()
 -参数：@Path("account") String account 
- - DELETE请求，删除动态，返回<Model.BackInfo>
- - 成功，设置Model.BackInfo.describe = "TC501"后返回
- - 异常失败，设置Model.BackInfo.describe = "TC502"后返回
- - 无此账号，设置Model.BackInfo.describe = "TC503"后返回
+  - DELETE请求，删除动态，返回<Model.BackInfo>
+  - 成功，设置Model.BackInfo.describe = "TC501"后返回
+  - 异常失败，设置Model.BackInfo.describe = "TC502"后返回
+  - 无此账号，设置Model.BackInfo.describe = "TC503"后返回
  
 ### 查询动态API
 -@GET("api/user/{groupId}/dynamic/{account}")
 -Call<List<PersonDynamic>> getDynamics() 
 - 参数1：@Query("limit") Int numbers 参数2:@Path("groupId") Int groupId
 - 参数3：@Path("account") String account
- - GET请求，获取所属groupId的指定account好友的 limit = numbers 条动态，返回{List<PersonDynamic>}
- - groupID
- - 成功设置PersonDynamic.backInfo = "TC601"后返回
- - 无次
+  - GET请求，获取所属groupId的指定account好友的 limit = numbers 条动态，返回{List<PersonDynamic>}
+  - groupID
+  - 成功设置PersonDynamic.backInfo = "TC601"后返回
+  - 无次
+  
 ## 评论模块
 
