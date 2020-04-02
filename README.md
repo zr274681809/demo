@@ -13,8 +13,8 @@
 ## 用户模块 
 ### 登录Api
 - @GET("api/user")
-- fun login(@Query("account") account: String, @Query("password") password: String): Call<Model.UserInfo>
-  - GET请求，参数account以及password ，返回值{Model.UserInfo}
+- fun login(@Query("account") account: String, @Query("password") password: String): Call<User>
+  - GET请求，参数account以及password ，返回值{User}
   - 登陆成功，设置UserInfo.backInfo = "TC001"，并返回
   - 登陆异常，设置UserInfo.backInfo = "TC002"，并返回
   - 该用户不存在，设置UserInfo.backInfo = "TC003" 并返回
