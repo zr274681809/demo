@@ -16,7 +16,7 @@
 - Call<User> login()
 - 参数1：@Query("account") String
 - 参数2：@Query("password") String  
-  - GET请求，参数account以及password ，返回值{User}
+  - GET请求，返回值{User}
   - 登陆成功，设置User.backInfo = "TC001"，并返回
   - 登陆异常，设置User.backInfo = "TC002"，并返回
   - 无此账号，设置User.backInfo = "TC003" 并返回
@@ -25,7 +25,7 @@
 - @POST("api/user")
 - Call<Model.BackInfo> register()
 - 参数：@Body("user") User
-  - POST请求，打包User数据发送至服务器,返回值{Model.BackInfo}
+  - POST请求,返回值{Model.BackInfo}
   - 注册成功，设置Model.BackInfo.describe = "TC101"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC102"后返回
   
@@ -43,7 +43,7 @@
 - Call<Model.BackInfo> updateUser()
 - 参数1：@Path("account") String
 - 参数2：@PartMap Map<String,RequestBody> content
-   - PUT请求，图文同时上传，返回{Model.BackInfo} 
+   - PUT请求，支持图文同时上传，返回{Model.BackInfo} 
    - 成功，设置Model.BackInfo.describe="TC301"后返回
    - 异常失败,设置Model.BackInfo.describe = "TC302"后返回
    - 无此账号,设置Model.BackInfo.describe = "TC303"后返回
@@ -51,13 +51,20 @@
 
 ## 动态模块  
 ### 动态模块主要实现包括用户图文或者视频内容的上传和删除以及查询，发布内容按时间排序，查询内容按发布时间获取
+
+### 参数说明
+- groupId表示用户所属分组
+- when(groupId)
+- == 0 -> 属于根分组，所有用户都可见
+- == others -> 属于用户自定义分组，仅该分组的人可见 
+
 ### 图文或者视频文字上传API
-- @PUT("api/user/dynamic/{account}")
+- @PUT("api/user/dynamic")
 - Call<Model.BackInfo> onLoadDynamic()
-- 参数1：@Path("account") String
-- 参数2：@path("groupId") Int
-- 参数3： @PartMap Map<String,RequestBody> content
-  - PUT请求，支持图文或者视频文字上传，返回<Model.BackInfo>
+- 参数1：@Query("account") String
+- 参数2：@Query("groupId") Int
+- 参数3：@PartMap Map<String,RequestBody> content
+  - PUT请求，支持图文或者视频文字同时上传，返回<Model.BackInfo>
   - 成功，设置Model.BackInfo.describe = "TC401"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC402"后返回
   - 无此账号，设置Model.BackInfo.describe = "TC403"后返回
@@ -72,11 +79,15 @@
   - 无此账号，设置Model.BackInfo.describe = "TC503"后返回
  
 ### 查询动态API
--@GET("api/user/{groupId}/dynamic/{account}")
--Call<List<PersonDynamic>> getDynamics() 
-- 参数1：@Query("limitNumbers") Int
-- 参数2:@Path("groupId") Int
-- 参数3：@Path("account") String
+- @GET("api/user/{groupId}/dynamic/{account}")
+- Call<List<PersonDynamic>> getDynamics() 
+- 参数1：@Query("limitNumbers") Int 
+- 参数2：@Query("dynamicId") Int
+- 参数3: @Path("groupId") Int   
+- 参数4: @Path("account") String  
+- 参数使用说明
+- 当{account.isEmpty == true}时，查询指定groupId的所有用户并按时间排序的limitNumbers条动态 
+- 当{account.isEmpty == false}时，查询指定groupId的account用户的按时间排序的limitNumbers条动态
   - GET请求，获取所属groupId的指定account好友的 limitNumbers 条动态，返回{List<PersonDynamic>}
   - groupID
   - 成功设置PersonDynamic.backInfo = "TC601"后返回
