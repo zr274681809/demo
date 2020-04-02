@@ -108,9 +108,9 @@
   - 无此账号，设置Model.BackInfo.describe = "TC403"后返回
  
 ### 删除动态API
--@DELETE("api/user/dynamic/{account}")
--Call<Model.BackInfo> deleteDynamic()
--参数：@Path("account") String
+- @DELETE("api/user/dynamic/{account}")
+- Call<Model.BackInfo> deleteDynamic()
+- 参数：@Path("account") String
   - DELETE请求，删除动态，返回<Model.BackInfo>
   - 成功，设置Model.BackInfo.describe = "TC501"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC502"后返回
