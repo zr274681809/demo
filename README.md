@@ -13,11 +13,11 @@
 ## 用户模块 
 ### 登录Api
 - @GET("api/user")
-- fun login(@Query("account") account: String, @Query("password") password: String): Call<Model.UserInfo>
-  - GET请求，参数account以及password ，返回值{Model.UserInfo}
-  - 登陆成功，设置UserInfo.backInfo = "TC001"，并返回
-  - 登陆异常，设置UserInfo.backInfo = "TC002"，并返回
-  - 该用户不存在，设置UserInfo.backInfo = "TC003" 并返回
+- fun login(@Query("account") account: String, @Query("password") password: String): Call<User>
+  - GET请求，参数account以及password ，返回值{User}
+  - 登陆成功，设置User.backInfo = "TC001"，并返回
+  - 登陆异常，设置User.backInfo = "TC002"，并返回
+  - 该用户不存在，设置User.backInfo = "TC003" 并返回
  
 ### 注册Api 
  - @POST("api/user")
@@ -35,12 +35,32 @@
   
 ### 更新用户信息Api
  - @PUT("api/user/{account}")
- - fun updateUser(@Path("account") account:String,
- - @PartMap content:<String,RequestBody>):Call<{Model.BackInfo>
+ - Call<Model.BackInfo> updateUser()
+ - 参数1：@Path(String account)  参数2： @PartMap Map<String,RequestBody> content
    - PUT请求，图文文字同时上传，返回{Model.BackInfo} 
    - 成功设置BackInfo.describe = "TC301"后返回
    - 失败设置BackInfo.describe = "TC302"后返回
    
 ### 网络相关的数据结构见客户端的data/network/Model.kt文件
 
+## 动态模块  
+### 动态模块主要实现包括用户图文或者视频内容的上传和删除以及查询，发布内容按时间排序，查询内容按发布时间获取
+### 图文或者视频文字上传API
+- @PUT("api/user/dynamic/{account}")
+- Call<Model.BackInfo> onLoadDynamic()
+- 参数1：@Path("account") (String account)  参数2： @PartMap Map<String,RequestBody> content
+ - PUT请求，支持图文或者视频文字上传，返回<Model.BackInfo>
+ - 成功设置BackInfo.describe = "TC401"后返回
+ - 失败设置BackInfo.describe = "TC402"后返回
+### 删除动态API
+-@DELETE("api/user/dynamic/{account}")
+-Call<Model.BackInfo> deleteDynamic()
+-参数：@Path("account") String account 
+ - DELETE请求，删除动态，返回<Model.BackInfo>
+ - 成功设置BackInfo.describe = "TC501"后返回
+ - 失败设置BackInfo.describe = "TC502"后返回
+ 
+### 查询动态API
+-@GET 
+## 评论模块
 
