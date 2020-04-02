@@ -5,4 +5,87 @@
     <select id="selectUserBynameAndPassword" resultType="com.example.demo.entity.User">
         select * from user where username=#{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
     </select>
+    <select id="selectByUserName" resultType="com.example.demo.entity.User">
+        select * from user where username=#{username,jdbcType=VARCHAR}
+    </select>
+    <insert id="insertNewOne" parameterType="com.example.demo.entity.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="loginId!=null">
+                loginId,
+            </if>
+            <if test="username!=null and username!=''">
+                username,
+            </if>
+            <if test="nickName!=null and nickName!=''">
+                nickName,
+            </if>
+            <if test="age!=null">
+                loginId,
+            </if>
+            <if test="birthday!=null and birthday!=''">
+                birthday,
+            </if>
+            <if test="headPortraitUrl!=null and headPortraitUrl!=''">
+                headPortraitUrl,
+            </if>
+            <if test="phoneNumber!=null and phoneNumber!=''">
+                phoneNumber,
+            </if>
+            <if test="password!=null and password!=''">
+                password,
+            </if>
+            <if test="identifyNumber!=null and identifyNumber!=''">
+                identifyNumber,
+            </if>
+            <if test="sex!=null and sex!=''">
+                sex,
+            </if>
+            <if test="hobby!=null and hobby!=''">
+                hobby,
+            </if>
+            <if test="introduce!=null and introduce!=''">
+                introduce,
+            </if>
+        </trim>
+
+        <trim prefix="value(" suffix=")" suffixOverrides=",">
+            <if test="loginId!=null">
+                #{loginId,jdbcType=INTEGER},
+            </if>
+            <if test="username!=null and username!=''">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName!=null and nickName!=''">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="age!=null">
+                #{loginId,,jdbcType=INTEGER},
+            </if>
+            <if test="birthday!=null and birthday!=''">
+               #{ birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="headPortraitUrl!=null and headPortraitUrl!=''">
+               #{headPortraitUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber!=null and phoneNumber!=''">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="password!=null and password!=''">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="identifyNumber!=null and identifyNumber!=''">
+                #{identifyNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="sex!=null and sex!=''">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="hobby!=null and hobby!=''">
+                #{hobby,jdbcType=VARCHAR},
+            </if>
+            <if test="introduce!=null and introduce!=''">
+                #{introduce,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>

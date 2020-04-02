@@ -108,7 +108,7 @@ public class ShiroConfig {
         //配置退出过滤器logout，由shiro实现
         filterChainMap.put("/logout","logout");
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问,先配置anon再配置authc。
-        filterChainMap.put("/api/user","anon");
+        filterChainMap.put("/api/login","anon");
    /*     filterChainMap.put("/inventory/login","anon");
         filterChainMap.put("/templates/**","anon");
         filterChainMap.put("/iclock/**","anon");
@@ -118,7 +118,7 @@ public class ShiroConfig {
         filterChainMap.put("/jquery-easyui-1.7.0/**", "anon"); //匿名访问静态资源*/
         filterChainMap.put("/**", "authc");
         //设置默认登录的URL.
-        shiroFilterFactoryBean.setLoginUrl("/api/user");
+        shiroFilterFactoryBean.setLoginUrl("/api/login");
         // shiroFilterFactoryBean.setUnauthorizedUrl("/templates/error.html");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
         return shiroFilterFactoryBean;
