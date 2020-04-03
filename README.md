@@ -48,8 +48,6 @@
   - 注销成功，设置Model.BackInfo.describe = "TC201"后返回
   - 异常失败，设置Model.Backinfo.describe = "TC202"后返回
   - 无此账号，设置Model.backInfo.describe = "TC203"后返回
-  
-  
 ### 更新用户信息Api
 - @POST("api/user/{account}")
 - Call<Model.BackInfo> updateUser()
@@ -59,8 +57,6 @@
    - 成功，设置Model.BackInfo.describe = "TC301"后返回
    - 异常失败,设置Model.BackInfo.describe = "TC302"后返回
    - 无此账号,设置Model.BackInfo.describe = "TC303"后返回
-  
-
 ### 查询好友APi
 - @GET("api/user/{userInfo}")
 - Call<Model.BackInfo> queryUser()
@@ -70,7 +66,6 @@
   - 无此用户，设置Model.BackInfo.describe = "TC402"
   - 异常失败，设置Model.BackInfo.describe = "TC403"
   - Content为好友的基本信息，不包含隐私信息如身份证，密码等等
-  
 ### 添加好友附带确认APi
 - @POST("api/user/{friendAccount}")
 - Call<Model.BackInfo> addUserWithBack()
@@ -81,7 +76,6 @@
   - 成功申请添加好友,设置Model.BackInfo.describe = "TC501" （此时，isRequireUser == "true"）
   - 成功确认添加好友，设置Model.BackInfo.describe = "TC502" (此时，isRequireUser == "false")
   - 异常失败,设置Model.BackInfo.describe = "TC503"
-  
 ### 获取用户好友APi
 - @GET("api/user/lists")
 - Call<Model.BackInfo> getFriends()
@@ -90,20 +84,14 @@
   - 成功，设置Model.BackInfo.describe = "TC1101" + Content 后返回
   - 失败，设置Model.BackInfo.describe = "TC1102"后返回
   - Content为获取到的好友列表内容
-  
-  
-
 ## 动态模块  
 ### 动态模块主要实现包括用户图文或者视频内容的上传和删除以及查询，发布内容按时间排序，查询内容按发布时间获取
-
 ### 参数说明
 - permissionId表示朋友圈访问权限类型
 - when(permissionId)
 - == 0 -> 所有用户都可见
 - == 1 -> 指定好友可见
 - == 2 -> 除了指定好友，其它都可见 
-
-
 ### 图文或者视频文字上传API
 - @POST("api/user/dynamic")
 - Call<Model.BackInfo> upLoadDynamic()
@@ -117,7 +105,6 @@
   - 成功，设置Model.BackInfo.describe = "TC601"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC602"后返回
   - 无此账号，设置Model.BackInfo.describe = "TC603"后返回
- 
 ### 删除动态API
 - @DELETE("api/user/dynamic/{dynamicId}")
 - Call<Model.BackInfo> deleteDynamic()
@@ -125,8 +112,6 @@
   - DELETE请求，删除动态，返回<Model.BackInfo>
   - 成功，设置Model.BackInfo.describe = "TC701"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC702"后返回
- 
-
 ### 查询动态API
 - @GET("api/user/dynamic")
 - Call<Model.BackInfo> getDynamics() 
@@ -138,9 +123,7 @@
   - 成功，设置Model.BackInfo.describe = "TC801" + Content后返回
   - 失败，设置Model.BackInfo.describe = "TC802"后返回
   - Content包含了指定数量的PersonDynamic表中的所有内容
-  
 ## 评论模块 
-
 ### 评论APi
 - @POST("api/user/comments")
 - Call<Model.BackInfo> comments()
@@ -152,7 +135,6 @@
   - POST请求，返回{Model.BackInfo}
   - 成功，设置Model.BackInfo.describe = "TC901"后返回
   - 失败,设置Model.BackInfo.describe = "TC902" 后返回
-  
 ### 评论查询APi 
 - @GET("api/user/comments")
 - Call<Model.BackInfo> queryComments()
@@ -163,7 +145,6 @@
   - 成功，设置Model.BackInfo.describe = "TC1001" + Content 后返回
   - 失败，设置Model.BackInfo.describe = "TC1002" 后返回
   - Content为CommentsMsg中的相关数据内容
-  
 ### 评论删除APi
 - @DELETE("api/user/comments")
 - Call<Model.BackInfo> deleteComments()
@@ -171,9 +152,7 @@
   - Delete请求，删除dynamicId所属的评论，返回{Model.BackInfo}
   - 成功，设置Model.BackInfo.describe = "TC1201"后返回
   - 失败，设置Model.BackInfo.describe = "TC1202"后返回
-  
  ## 点赞模块
- 
  ### 点赞APi
  - @POST("api/user/like")
  - Call<Model.BackInfo> addLike()
@@ -182,7 +161,6 @@
  - POST请求，返回{Model.BackInfo}
  - 成功，设置Model.BackInfo.describe = "TC1301"后返回
  - 失败，设置Model.BackInfo.describe = "TC1302"后返回
- 
  ### 取消点赞APi
  - @DELETE("api/user/like")
  - Call<Model.BackInfo> cancelLike()
