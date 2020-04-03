@@ -95,11 +95,10 @@
 ### 图文或者视频文字上传API
 - @POST("api/user/dynamic")
 - Call<Model.BackInfo> upLoadDynamic()
-- 参数1：@Query("account") String
-- 参数2：@QueryMap Map<String,String> permissionArgs 
-- 参数3：@PartMap Map<String,RequestBody> contentArgs
+- 参数1：@QueryMap Map<String,String> permissionArgs 
+- 参数2：@PartMap Map<String,RequestBody> contentArgs
 - permissionArgs表示访问权限列表,user_n表示指定的用户，user_n如果没有，则表示均可见
-- {permissionId="权限类型",user_1="",user_2="",...}
+- {account="用户账号",permissionId="权限类型",user_1="",user_2="",...}
 - contentArgs表示内容列表，包含图片、文字、视频上传的RequestBody
   - POST请求，支持图文或者视频文字同时上传，返回<Model.BackInfo>
   - 成功，设置Model.BackInfo.describe = "TC601"后返回
