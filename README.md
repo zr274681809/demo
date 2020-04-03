@@ -154,8 +154,8 @@
 ### 删除评论APi
 - @DELETE("api/user/comments")
 - String deleteComments()
-- 参数：@Query("dynamicId") Int 
-  - Delete请求，删除dynamicId所属的评论，返回{String}
+- 参数：@Query("id") Int 
+  - Delete请求，删除指定评论，返回{String}
   - 成功，设置String = "TC1301"后返回
   - 失败，设置String = "TC1302"后返回
  ## 点赞模块
