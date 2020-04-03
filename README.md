@@ -167,3 +167,12 @@
    - DELETE请求，删除指定dynamic的点赞，返回{Model.BackInfo}
    - 成功，设置Model.BackInfo.describe = "TC1401"后返回
    - 失败，设置Model.BackInfo.describe = "TC1402"后返回
+### 查询点赞APi
+- @GET("api/user/like")
+- Call<Model.BackInfo> queryLike()
+- 参数：@QueryMap Map<String,String> queryLikeArgs
+- queryLikeArgs = {dynamicId="哪条动态",account = "谁请求查询"}
+  - GET请求，返回<Model.BackInfo>
+  - 成功，设置Model.BackInfo.describe = "TC1501"+Content后返回
+  - 失败，设置Model.BackInfo.describe = "TC1502"后返回
+  - Content为Like表中的格式内容
