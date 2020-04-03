@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
 /*朋友圈屏蔽列表
 * A->B 表示B屏蔽A
 * 当B对A设置开放时
-* A->B所在的列将移动到开放列表
+* A->B所在的行将移动到开放列表
 * */
 data class DynamicAccessShield(
     @PrimaryKey(autoGenerate = true)  val id:Int,
