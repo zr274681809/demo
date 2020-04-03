@@ -76,13 +76,20 @@
   - 成功申请添加好友,设置Model.BackInfo.describe = "TC501" （此时，isRequireUser == "true"）
   - 成功确认添加好友，设置Model.BackInfo.describe = "TC502" (此时，isRequireUser == "false")
   - 异常失败,设置Model.BackInfo.describe = "TC503"
+### 删除好友Api
+- DELETE("api/user/{friendAccount}")
+- Call<Model.BackInfo> deleteFriend()
+- 参数：@PATH("friendAccount") String
+  - DELETE请求，删除指定账户好友，返回{Model.BackInfo}
+  - 成功，设置Model.BackInfo.describe = "601"后返回
+  - 失败，设置Model.BackInfo.describe = "602"后返回
 ### 获取用户好友APi
 - @GET("api/user/lists")
 - Call<Model.BackInfo> getFriends()
 - 参数1：@Query("account") String
   - GET请求，获取account账户的好友，返回{Model.backInfo}
-  - 成功，设置Model.BackInfo.describe = "TC1101" + Content 后返回
-  - 失败，设置Model.BackInfo.describe = "TC1102"后返回
+  - 成功，设置Model.BackInfo.describe = "TC701" + Content 后返回
+  - 失败，设置Model.BackInfo.describe = "TC702"后返回
   - Content为获取到的好友列表内容
 ## 动态模块  
 ### 动态模块主要实现包括用户图文或者视频内容的上传和删除以及查询，发布内容按时间排序，查询内容按发布时间获取
@@ -92,7 +99,7 @@
 - == 0 -> 所有用户都可见
 - == 1 -> 指定好友可见
 - == 2 -> 除了指定好友，其它都可见 
-### 图文或者视频文字上传API
+### 添加动态API
 - @POST("api/user/dynamic")
 - Call<Model.BackInfo> upLoadDynamic()
 - 参数1：@QueryMap Map<String,String> permissionArgs 
@@ -101,16 +108,16 @@
 - {account="用户账号",permissionId="权限类型",user_1="",user_2="",...}
 - contentArgs表示内容列表，包含图片、文字、视频上传的RequestBody
   - POST请求，支持图文或者视频文字同时上传，返回<Model.BackInfo>
-  - 成功，设置Model.BackInfo.describe = "TC601"后返回
-  - 异常失败，设置Model.BackInfo.describe = "TC602"后返回
-  - 无此账号，设置Model.BackInfo.describe = "TC603"后返回
+  - 成功，设置Model.BackInfo.describe = "TC801"后返回
+  - 异常失败，设置Model.BackInfo.describe = "TC802"后返回
+  - 无此账号，设置Model.BackInfo.describe = "TC803"后返回
 ### 删除动态API
 - @DELETE("api/user/dynamic/{dynamicId}")
 - Call<Model.BackInfo> deleteDynamic()
 - 参数：@Path("dynamicId") Int
   - DELETE请求，删除动态，返回<Model.BackInfo>
-  - 成功，设置Model.BackInfo.describe = "TC701"后返回
-  - 异常失败，设置Model.BackInfo.describe = "TC702"后返回
+  - 成功，设置Model.BackInfo.describe = "TC901"后返回
+  - 异常失败，设置Model.BackInfo.describe = "TC902"后返回
 ### 查询动态API
 - @GET("api/user/dynamic")
 - Call<Model.BackInfo> getDynamics() 
@@ -119,11 +126,11 @@
 - 当{account.isEmpty == true}时，查询所有好友用户的按时间排序的limitNumbers条动态 
 - 当{account.isEmpty == false}时，查询account用户的按时间排序的limitNumbers条动态  
   - GET请求，返回{Model.BackInfo}
-  - 成功，设置Model.BackInfo.describe = "TC801" + Content后返回
-  - 失败，设置Model.BackInfo.describe = "TC802"后返回
+  - 成功，设置Model.BackInfo.describe = "TC1001" + Content后返回
+  - 失败，设置Model.BackInfo.describe = "TC1002"后返回
   - Content包含了指定数量的PersonDynamic表中的所有内容
 ## 评论模块 
-### 评论APi
+### 添加评论APi
 - @POST("api/user/comments")
 - Call<Model.BackInfo> comments()
 - 参数1: @Body("message") String
@@ -132,25 +139,25 @@
 - {dynamicId="评论哪一条", userNickName="评论人的昵称"}
 - {friendNickName="被评论人的昵称"，time="评论时间"}
   - POST请求，返回{Model.BackInfo}
-  - 成功，设置Model.BackInfo.describe = "TC901"后返回
-  - 失败,设置Model.BackInfo.describe = "TC902" 后返回
-### 评论查询APi 
+  - 成功，设置Model.BackInfo.describe = "TC1101"后返回
+  - 失败,设置Model.BackInfo.describe = "TC1102" 后返回
+### 查询评论APi 
 - @GET("api/user/comments")
 - Call<Model.BackInfo> queryComments()
 - 参数: @QueryMap queryCommentsArgs
 - queryCommentsArgs主要有{myAccount="我的账号"，dynamicId="查询的动态id"，limitNumbers="获取评论的数量"}
   - 通过查询访问控制列表，获得可访问的用户账户列表,然后查询属于dynamicId的评论人
   - GET请求，返回{Model.BackInfo}
-  - 成功，设置Model.BackInfo.describe = "TC1001" + Content 后返回
-  - 失败，设置Model.BackInfo.describe = "TC1002" 后返回
+  - 成功，设置Model.BackInfo.describe = "TC1201" + Content 后返回
+  - 失败，设置Model.BackInfo.describe = "TC1202" 后返回
   - Content为CommentsMsg中的相关数据内容
-### 评论删除APi
+### 删除评论APi
 - @DELETE("api/user/comments")
 - Call<Model.BackInfo> deleteComments()
 - 参数：@Query("dynamicId") Int 
   - Delete请求，删除dynamicId所属的评论，返回{Model.BackInfo}
-  - 成功，设置Model.BackInfo.describe = "TC1201"后返回
-  - 失败，设置Model.BackInfo.describe = "TC1202"后返回
+  - 成功，设置Model.BackInfo.describe = "TC1301"后返回
+  - 失败，设置Model.BackInfo.describe = "TC1302"后返回
  ## 点赞模块
  ### 点赞APi
  - @POST("api/user/like")
@@ -158,21 +165,21 @@
  - 参数：@QueryMap Map<String，String> likeArgs
  - likeArgs={dynamicId= "",account= ""}
  - POST请求，返回{Model.BackInfo}
- - 成功，设置Model.BackInfo.describe = "TC1301"后返回
- - 失败，设置Model.BackInfo.describe = "TC1302"后返回
+ - 成功，设置Model.BackInfo.describe = "TC1401"后返回
+ - 失败，设置Model.BackInfo.describe = "TC1402"后返回
  ### 取消点赞APi
  - @DELETE("api/user/like")
  - Call<Model.BackInfo> cancelLike()
  - 参数：@Query("dynamicId") String
    - DELETE请求，删除指定dynamic的点赞，返回{Model.BackInfo}
-   - 成功，设置Model.BackInfo.describe = "TC1401"后返回
-   - 失败，设置Model.BackInfo.describe = "TC1402"后返回
+   - 成功，设置Model.BackInfo.describe = "TC1501"后返回
+   - 失败，设置Model.BackInfo.describe = "TC1502"后返回
 ### 查询点赞APi
 - @GET("api/user/like")
 - Call<Model.BackInfo> queryLike()
 - 参数：@QueryMap Map<String,String> queryLikeArgs
 - queryLikeArgs = {dynamicId="哪条动态",account = "谁请求查询"}
   - GET请求，返回<Model.BackInfo>
-  - 成功，设置Model.BackInfo.describe = "TC1501"+Content后返回
-  - 失败，设置Model.BackInfo.describe = "TC1502"后返回
+  - 成功，设置Model.BackInfo.describe = "TC1601"+Content后返回
+  - 失败，设置Model.BackInfo.describe = "TC1602"后返回
   - Content为Like表中的格式内容
