@@ -15,39 +15,30 @@
   - like 朋友点赞表
 ### 数据库相关的模块见data/db/entity.kt
 ## 用户模块 
-### 参数说明 
-- 返回值分为两部分
-- {Report + Content}组合成字符串
-- Report 指的是处理结果
-- Content 指的是内容数据，需要将其处理成Josn的格式加到Report后面一起返回
-- 因此，返回内容 = Report + Content 
-- 若需要传回必要数据，返回Report + Content 
-- 若无有效数据或者不需要额外的回传数据，仅返回Report
 ### 登录Api
 - @GET("api/user")
-- String  login()
+- User  login()
 - 参数1：@Query("account") String
 - 参数2：@Query("password") String  
-  - GET请求，返回值{String}
-  - 登陆成功，设置String = "TC001"+Content，并返回
-  - 登陆异常，设置String = "TC002"，并返回
-  - 无此账号，设置String = "TC003" 并返回
-  - Content为User表中的基本信息，不需要回传密码
+  - GET请求，返回值{User}
+  - 登陆成功，返回User
+  - 登陆异常，返回Null
 ### 注册Api 
+```
 - @POST("api/user")
-- String register()
+- User register()
 - 参数：@Body("user") User
-  - POST请求,返回值{String}
-  - 注册成功，设置String = "TC101"后返回
-  - 异常失败，设置String = "TC102"后返回
+  - POST请求,返回值{User}
+  - 注册成功，返回User
+  - 异常失败，返回Null
+```
 ### 注销Api
 - @DELETE("api/user/{account}")
 - String logout()
 - 参数：@Path("account") String
   - DELETE请求，返回{String}
-  - 注销成功，设置String = "TC201"后返回
-  - 异常失败，设置String = "TC202"后返回
-  - 无此账号，设置String = "TC203"后返回
+  - 注销成功，设置String = "TC101"后返回
+  - 异常失败，设置String = "TC102"后返回
 ### 更新用户信息Api
 - @POST("api/user/{account}")
 - String updateUser()
@@ -59,10 +50,10 @@
    - 无此账号,设置String = "TC303"后返回
 ### 查询好友APi
 - @GET("api/user/{userInfo}")
-- String queryUser()
+- User queryUser()
 - 参数：@Path("userInfo") String
-  - GET请求，userInfo可以是昵称，可以是用户名,返回{String}
-  - 成功，设置String = "TC401" + Content
+  - GET请求，userInfo可以是昵称，可以是用户名,返回{User}
+  - 成功，返回User
   - 无此用户，设置String = "TC402"
   - 异常失败，设置String = "TC403"
   - Content为好友的基本信息，不包含隐私信息如身份证，密码等等
