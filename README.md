@@ -78,7 +78,7 @@
   - 异常失败,设置String = "TC503"
 ### 删除好友Api
 - DELETE("api/user/{friendAccount}")
-- Call<String> deleteFriend()
+- Call<String>  deleteFriend()
 - 参数：@PATH("friendAccount") String
   - DELETE请求，删除指定账户好友，返回{String}
   - 成功，设置String = "601"后返回
