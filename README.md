@@ -5,8 +5,6 @@
   - 实现用户发送自身动态信息，包括文字、图片以及视频动态信息的发表，类似微信朋友圈
   - 实现用户互相评论、点赞，参考微信朋友圈的评论和点赞。
   - 实现好友查询，添加好友，按好友分组显示动态信息
-  
-  
 ## 数据库表 
   - user   用户表，保存了用户相关信息
   - userRelation 用户关系表，保存了用户之间的相互关系
@@ -15,12 +13,8 @@
   - DynamicAccessShield 朋友圈屏蔽表
   - DynamicAccessAllow 朋友圈开放表
   - like 朋友点赞表
-  
-  
 ### 数据库相关的模块见data/db/entity.kt
-
 ## 用户模块 
-
 ### 参数说明 
 - Model.BackInfo.describe返回值分为两部分
 - {Report + Content}字符串
@@ -29,7 +23,6 @@
 - 因此，BackInfo返回内容 = Report + Content 
 - 若需要传回必要数据，返回Report + Content 
 - 若无有效数据或者不需要额外的回传数据，仅返回Report
-
 ### 登录Api
 - @GET("api/user")
 - Call<Model.BackInfo>  login()
@@ -40,7 +33,6 @@
   - 登陆异常，设置Model.BackInfo.describe = "TC002"，并返回
   - 无此账号，设置Model.BackInfo.describe = "TC003" 并返回
   - Content为User表中的基本信息，不需要回传密码
- 
 ### 注册Api 
 - @POST("api/user")
 - Call<Model.BackInfo> register()
@@ -48,8 +40,6 @@
   - POST请求,返回值{Model.BackInfo}
   - 注册成功，设置Model.BackInfo.describe = "TC101"后返回
   - 异常失败，设置Model.BackInfo.describe = "TC102"后返回
- 
-  
 ### 注销Api
 - @DELETE("api/user/{account}")
 - Call<Model.BackInfo> logout()
