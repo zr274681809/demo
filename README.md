@@ -1,7 +1,5 @@
 # TravelCommunityService
-
 # 项目服务器
-
 ## 暂时实现部分功能
   - 实现用户登陆，注册，设置用户基本信息包括昵称，年龄，头像，爱好等等
   - 实现用户发送自身动态信息，包括文字、图片以及视频动态信息的发表，类似微信朋友圈
@@ -94,6 +92,15 @@
   - 成功确认添加好友，设置Model.BackInfo.describe = "TC502" (此时，isRequireUser == "false")
   - 异常失败,设置Model.BackInfo.describe = "TC503"
   
+### 获取用户好友APi
+- @GET("api/user/lists")
+- Call<Model.BackInfo> getFriends()
+- 参数1：@Query("account") String
+  - GET请求，获取account账户的好友，返回{Model.backInfo}
+  - 成功，设置Model.BackInfo.describe = "TC1101" + Content 后返回
+  - 失败，设置Model.BackInfo.describe = "TC1102"后返回
+  - Content为获取到的好友列表内容
+  
   
 
 ## 动态模块  
@@ -167,6 +174,29 @@
   - 失败，设置Model.BackInfo.describe = "TC1002" 后返回
   - Content为CommentsMsg中的相关数据内容
   
+### 评论删除APi
+- @DELETE("api/user/comments")
+- Call<Model.BackInfo> deleteComments()
+- 参数：@Query("dynamicId") Int 
+  - Delete请求，删除dynamicId所属的评论，返回{Model.BackInfo}
+  - 成功，设置Model.BackInfo.describe = "TC1201"后返回
+  - 失败，设置Model.BackInfo.describe = "TC1202"后返回
   
-  ## 点赞模块
+ ## 点赞模块
  
+ ### 点赞APi
+ - @POST("api/user/like")
+ - Call<Model.BackInfo> addLike()
+ - 参数：@QueryMap Map<String，String> likeArgs
+ - likeArgs={dynamicId= "",account= ""}
+ - POST请求，返回{Model.BackInfo}
+ - 成功，设置Model.BackInfo.describe = "TC1301"后返回
+ - 失败，设置Model.BackInfo.describe = "TC1302"后返回
+ 
+ ### 取消点赞APi
+ - @DELETE("api/user/like")
+ - Call<Model.BackInfo> cancelLike()
+ - 参数：@Query("dynamicId") String
+   - DELETE请求，删除指定dynamic的点赞，返回{Model.BackInfo}
+   - 成功，设置Model.BackInfo.describe = "TC1401"后返回
+   - 失败，设置Model.BackInfo.describe = "TC1402"后返回
