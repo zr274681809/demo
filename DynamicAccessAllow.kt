@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
 /*加载朋友圈动态时可看权限列表
 * A->B 表示B对A开放
 * 当B屏蔽了A时
-* A->B所在的列将移动到屏蔽列表中
+* A->B所在的行将移动到屏蔽列表中
 * */
 data class DynamicAccessAllow(
     @PrimaryKey(autoGenerate = true) val id:Int,
