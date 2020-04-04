@@ -22,53 +22,48 @@
 - 参数1：@Query("account") String
 - 参数2：@Query("password") String  
   - GET请求，返回值{User}
-  - 登陆成功，返回User
-  - 登陆异常，返回Null
+  - 设置好相应HTTP状态码
 ```
 ```
 ### 注册Api 
 - @POST("api/user")
 - User register()
 - 参数：@Body("user") User
-  - POST请求,返回值{User}
-  - 注册成功，返回User
-  - 异常失败，返回Null
+  - POST请求，返回值{User}
+  - 设置好相应HTTP状态码
 ```
 ```
 ### 注销Api
 - @DELETE("api/user/{account}")
 - void logout()
 - 参数：@Path("account") String
-  - DELETE请求
+  - DELETE请求,返回HTTP状态码
+ ```
  ```
 ### 更新用户信息Api
 - @POST("api/user/{account}")
-- String updateUser()
+- void updateUser()
 - 参数1：@Path("account") String
 - 参数2：@PartMap Map<String,RequestBody> contentArgs
-   - POST请求，支持图文同时上传，返回{String} 
-   - 成功，设置String = "TC301"后返回
-   - 异常失败,设置String = "TC302"后返回
-   - 无此账号,设置String = "TC303"后返回
+   - POST请求，支持图文同时上传
+```
+```
 ### 查询好友APi
 - @GET("api/user/{userInfo}")
 - User queryUser()
 - 参数：@Path("userInfo") String
-  - GET请求，userInfo可以是昵称，可以是用户名,返回{User}
-  - 成功，返回User
-  - 无此用户，设置String = "TC402"
-  - 异常失败，设置String = "TC403"
-  - Content为好友的基本信息，不包含隐私信息如身份证，密码等等
+  - GET请求，userInfo可以是昵称，返回{User}
+```
+```
 ### 添加好友附带确认APi
 - @POST("api/user/{friendAccount}")
-- String addUserWithBack()
+- void addUserWithBack()
 - 参数1: @Path("friendAccount") String
 - 参数2：@QueryMap Map<String,String> addWithBackArgs
 - addWithBack包含{userAccount="用户账号",groupId="设置所属分组ID",isRequireUser="是否是发起人"}
-  - POST请求，friendAccount为对方账号，userAccount为用户账号，返回{String}
-  - 成功申请添加好友,设置String = "TC501" （此时，isRequireUser == "true"）
-  - 成功确认添加好友，设置String = "TC502" (此时，isRequireUser == "false")
-  - 异常失败,设置String = "TC503"
+  - POST请求，friendAccount为对方账号，userAccount为用户账号
+```  
+```
 ### 删除好友Api
 - DELETE("api/user/{friendAccount}")
 - String  deleteFriend()
@@ -76,6 +71,8 @@
   - DELETE请求，删除指定账户好友，返回{String}
   - 成功，设置String = "601"后返回
   - 失败，设置String = "602"后返回
+```
+```
 ### 获取用户好友APi
 - @GET("api/user/lists")
 - String getFriends()
