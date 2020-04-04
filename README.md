@@ -15,6 +15,7 @@
   - like 朋友点赞表
 ### 数据库相关的模块见data/db/entity.kt
 ## 用户模块 
+```
 ### 登录Api
 - @GET("api/user")
 - User  login()
@@ -23,8 +24,9 @@
   - GET请求，返回值{User}
   - 登陆成功，返回User
   - 登陆异常，返回Null
-### 注册Api 
 ```
+```
+### 注册Api 
 - @POST("api/user")
 - User register()
 - 参数：@Body("user") User
@@ -32,13 +34,13 @@
   - 注册成功，返回User
   - 异常失败，返回Null
 ```
+```
 ### 注销Api
 - @DELETE("api/user/{account}")
-- String logout()
+- void logout()
 - 参数：@Path("account") String
-  - DELETE请求，返回{String}
-  - 注销成功，设置String = "TC101"后返回
-  - 异常失败，设置String = "TC102"后返回
+  - DELETE请求
+ ```
 ### 更新用户信息Api
 - @POST("api/user/{account}")
 - String updateUser()
