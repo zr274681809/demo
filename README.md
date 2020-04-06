@@ -88,6 +88,7 @@
 - == 0 -> 所有用户都可见
 - == 1 -> 指定好友可见
 - == 2 -> 除了指定好友，其它都可见 
+
 ### 添加动态API
 - @POST("api/user/dynamic")
 - String upLoadDynamic()
@@ -96,28 +97,22 @@
 - permissionArgs表示访问权限列表,user_n表示指定的用户，user_n如果没有，则表示均可见
 - {account="用户账号",permissionId="权限类型",user_1="",user_2="",...}
 - contentArgs表示内容列表，包含图片、文字、视频上传的RequestBody
-  - POST请求，支持图文或者视频文字同时上传，返回<String>
-  - 成功，设置String = "TC801"后返回
-  - 异常失败，设置String = "TC802"后返回
-  - 无此账号，设置String = "TC803"后返回
+  - POST请求，支持图文或者视频文字同时上传
 ### 删除动态API
 - @DELETE("api/user/dynamic/{dynamicId}")
 - String deleteDynamic()
 - 参数：@Path("dynamicId") Int
-  - DELETE请求，删除动态，返回<String>
-  - 成功，设置String = "TC901"后返回
-  - 异常失败，设置String = "TC902"后返回
+ 
 ### 查询动态API
 - @GET("api/user/dynamic")
 - String getDynamics() 
 - 参数：@QueryMap  Map<String,String>  queryDynamicArgs   
-- 参数包含内容：{account="用户名"},{limitNumbers="动态数量"}
-- 当{account.isEmpty == true}时，查询所有好友用户的按时间排序的limitNumbers条动态 
-- 当{account.isEmpty == false}时，查询account用户的按时间排序的limitNumbers条动态  
-  - GET请求，返回{String}
-  - 成功，设置String = "TC1001" + Content后返回
-  - 失败，设置String = "TC1002"后返回
-  - Content包含了指定数量的PersonDynamic表中的所有内容
+- 参数包含内容：{userAccount="本机用户名"}{friendAccount="查询哪个用户动态"},{limitNumbers="动态数量"}
+- 当{userAccount.isEmpty == true && friendAccount.isEmpty == true}时，查询系统推荐的按时间排序的limitNumbers条用户动态 {推荐页}
+- 当{userAccount.isEmpty == false && friendAccount.isEmpty == true}时，查询friendAccount用户按系统推荐的limitNumbers条动态  {关注页}
+- 当{userAccount.isEmpty == false && friendAccount.isEmpty == false}时，查询friendAccount用户的limitNumbers条动态  {用户页}  
+  - GET请求，返回{List<PersonDynamic>}
+  
 ## 评论模块 
 ### 添加评论APi
 - @POST("api/user/comments")
