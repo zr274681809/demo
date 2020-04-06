@@ -99,11 +99,13 @@
 - contentArgs表示内容列表，包含图片、文字、视频上传的RequestBody
   - POST请求，支持图文或者视频文字同时上传
  ```
+```
 ### 删除动态API
 - @DELETE("api/user/dynamic/{dynamicId}")
 - String deleteDynamic()
 - 参数：@Path("dynamicId") Int
-``` 
+```
+```
 ### 查询动态API
 - @GET("api/user/dynamic")
 - List<PersonDynamic> getDynamics() 
@@ -117,6 +119,7 @@
 - 查询friendAccount用户的limitNumbers条动态  {用户页}  
   - GET请求，返回{List<PersonDynamic>}
  ```
+ 
 ## 评论模块 
 ### 添加评论APi
 - @POST("api/user/comments")
