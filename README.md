@@ -72,7 +72,6 @@
   - 成功，设置String = "601"后返回
   - 失败，设置String = "602"后返回
 ```
-```
 ### 获取用户好友APi
 - @GET("api/user/lists")
 - String getFriends()
