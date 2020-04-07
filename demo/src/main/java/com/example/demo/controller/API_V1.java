@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
@@ -32,5 +33,9 @@ public class API_V1 {
     @RequestMapping(value = "/api/upload",method = RequestMethod.POST)
     public String upload(MultipartFile file) throws IOException, MyException {
         return FdfsUtil.upLoad(file);
+    }
+    @RequestMapping(value = "/api/download",method = RequestMethod.GET)
+    public void download(String filePath, HttpServletResponse response) throws IOException, MyException {
+        response.getOutputStream().write(FdfsUtil.downLoad(filePath));
     }
 }
