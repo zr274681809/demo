@@ -57,6 +57,12 @@
             <artifactId>shiro-ehcache</artifactId>
             <version>1.4.0</version>
         </dependency>
+        <!-- 添加fastdfs依赖-->
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.28-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
