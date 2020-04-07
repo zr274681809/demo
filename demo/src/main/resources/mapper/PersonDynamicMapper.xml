@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.PersonDynamicMapper">
+    <select id="selectPageByAccount" resultType="com.example.demo.entity.PersonDynamic">
+        SELECT * from personDynamic
+         <trim prefix="where">
+             <if test="userAccount!=null and userAccount!=''">
+                 user_id  in(select friendid from userRelation where userid =(select userid from user where account = #{userAccount,jdbcType=VARCHAR}))
+             </if>
+             <if test="friendAccount!=null and friendAccount!=''">
+                 user_id = (select userid from user where account = #{friendAccount,jdbcType=VARCHAR})
+             </if>
+         </trim>
+         ORDER BY submitsTime limit #{page,jdbcType=INTEGER},3
+    </select>
+</mapper>

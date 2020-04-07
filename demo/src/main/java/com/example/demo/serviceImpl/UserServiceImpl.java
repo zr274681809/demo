@@ -11,10 +11,11 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-
+/** @author lyn 
+ * @description //TODO 用户服务实现
+ * @date 2020/4/7 15:19 
+*/
 @Service
 public class UserServiceImpl implements UserService {
     @Resource

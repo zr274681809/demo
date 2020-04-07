@@ -3,27 +3,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.UserMapper">
     <select id="selectUserBynameAndPassword" resultType="com.example.demo.entity.User">
-        select * from user where username=#{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+        select * from user where account=#{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
     </select>
     <select id="selectByUserName" resultType="com.example.demo.entity.User">
-        select * from user where username=#{username,jdbcType=VARCHAR}
+        select * from user where account=#{username,jdbcType=VARCHAR}
     </select>
     <insert id="insertNewOne" parameterType="com.example.demo.entity.User">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="loginId!=null">
-                loginId,
+            <if test="userId!=null">
+                userId,
             </if>
-            <if test="username!=null and username!=''">
-                username,
+            <if test="account!=null and account!=''">
+                account,
             </if>
             <if test="nickName!=null and nickName!=''">
                 nickName,
             </if>
             <if test="age!=null">
-                loginId,
+                age,
             </if>
-            <if test="birthday!=null and birthday!=''">
+            <if test="birthday!=null">
                 birthday,
             </if>
             <if test="headPortraitUrl!=null and headPortraitUrl!=''">
@@ -47,23 +47,29 @@
             <if test="introduce!=null and introduce!=''">
                 introduce,
             </if>
+            <if test="stat!=null ">
+                stat,
+            </if>
+            <if test="lastLoginTime!=null ">
+                lastLoginTime,
+            </if>
         </trim>
 
         <trim prefix="value(" suffix=")" suffixOverrides=",">
-            <if test="loginId!=null">
-                #{loginId,jdbcType=INTEGER},
+            <if test="userId!=null">
+                #{userId,jdbcType=INTEGER},
             </if>
-            <if test="username!=null and username!=''">
-                #{username,jdbcType=VARCHAR},
+            <if test="account!=null and account!=''">
+                #{account,jdbcType=VARCHAR},
             </if>
             <if test="nickName!=null and nickName!=''">
                 #{nickName,jdbcType=VARCHAR},
             </if>
             <if test="age!=null">
-                #{loginId,,jdbcType=INTEGER},
+                #{age,jdbcType=INTEGER},
             </if>
-            <if test="birthday!=null and birthday!=''">
-               #{ birthday,jdbcType=VARCHAR},
+            <if test="birthday!=null ">
+               #{ birthday,jdbcType=DATE},
             </if>
             <if test="headPortraitUrl!=null and headPortraitUrl!=''">
                #{headPortraitUrl,jdbcType=VARCHAR},
@@ -85,6 +91,12 @@
             </if>
             <if test="introduce!=null and introduce!=''">
                 #{introduce,jdbcType=VARCHAR},
+            </if>
+            <if test="stat!=null ">
+                #{stat,jdbcType=INTEGER},
+            </if>
+            <if test="lastLoginTime!=null ">
+                #{ lastLoginTime,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>

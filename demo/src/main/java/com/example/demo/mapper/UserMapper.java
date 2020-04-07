@@ -1,7 +1,10 @@
 package com.example.demo.mapper;
 
 import com.example.demo.entity.User;
-
+/** @author lyn 
+ * @description //TODO 用户数据库查询
+ * @date 2020/4/7 15:18 
+*/
 public interface UserMapper {
     /** @description //TODO 根据用户名密码查找用户
      * @parme [username, password] 

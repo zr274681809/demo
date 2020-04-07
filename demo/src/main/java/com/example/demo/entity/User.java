@@ -1,16 +1,23 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+/** @author lyn
+ * @description //TODO 用户信息实体类
+ * @date 2020/4/7 14:37
+*/
 public class User {
     //id
-    private Integer loginId;
+    private Integer userId;
     //用户名
-    private String username;
+    private String account;
     //昵称
     private String nickName;
     //年龄
     private Integer age;
     //出生日期
-    private String birthday;
+    private Date birthday;
     //头像图片地址
     private String headPortraitUrl;
     //手机号
@@ -25,13 +32,46 @@ public class User {
     private String hobby;
     //自我介绍
     private String introduce;
+    //状态
+    private Integer stat;
+    //最后登录时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
+    private Date lastLoginTime;
 
-    public Integer getLoginId() {
-        return loginId;
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", account='" + account + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", age=" + age +
+                ", birthday=" + birthday +
+                ", headPortraitUrl='" + headPortraitUrl + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", identifyNumber='" + identifyNumber + '\'' +
+                ", sex='" + sex + '\'' +
+                ", hobby='" + hobby + '\'' +
+                ", introduce='" + introduce + '\'' +
+                ", stat=" + stat +
+                ", lastLoginTime=" + lastLoginTime +
+                '}';
     }
 
-    public void setLoginId(Integer loginId) {
-        this.loginId = loginId;
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getNickName() {
@@ -50,11 +90,11 @@ public class User {
         this.age = age;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -114,29 +154,19 @@ public class User {
         this.introduce = introduce;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getStat() {
+        return stat;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setStat(Integer stat) {
+        this.stat = stat;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "loginId=" + loginId +
-                ", username='" + username + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", age=" + age +
-                ", birthday='" + birthday + '\'' +
-                ", headPortraitUrl='" + headPortraitUrl + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
-                ", identifyNumber='" + identifyNumber + '\'' +
-                ", sex='" + sex + '\'' +
-                ", hobby='" + hobby + '\'' +
-                ", introduce='" + introduce + '\'' +
-                '}';
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }
