@@ -1,10 +1,13 @@
 # TravelCommunityService
 # 项目服务器
+ ```
 ## 暂时实现部分功能
   - 实现用户登陆，注册，设置用户基本信息包括昵称，年龄，头像，爱好等等
   - 实现用户发送自身动态信息，包括文字、图片以及视频动态信息的发表，类似微信朋友圈
   - 实现用户互相评论、点赞，参考微信朋友圈的评论和点赞。
   - 实现好友查询，添加好友，按好友分组显示动态信息
+ ```
+ ```
 ## 数据库表 
   - user   用户表，保存了用户相关信息
   - userRelation 用户关系表，保存了用户之间的相互关系
@@ -13,7 +16,27 @@
   - DynamicAccessShield 朋友圈屏蔽表
   - DynamicAccessAllow 朋友圈开放表
   - like 朋友点赞表
+```
+
+```
+数据请求返回结构
+class ApiResponse<T>(
+    var data: T?,    //返回的数据内容
+    var errorCode: Int,  //错误代码   
+    var errorMsg: String  //错误的详细描述（一般设置为""即可）
+)
+
+服务器端状态码设置 
+errorCode = {
+  0 -> 成功
+  1 -> 失败
+  2 -> 无此查询结果
+  other -> 其他情况，设置errorMsg以描述错误情况
+}
+```
+
 ### 数据库相关的模块见data/db/entity.kt
+
 ## 用户模块 
 ```
 ### 登录Api
