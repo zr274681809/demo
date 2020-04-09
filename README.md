@@ -124,32 +124,40 @@
 ## 动态模块  
 ### 动态模块主要实现包括用户图文或者视频内容的上传和删除以及查询，发布内容按时间排序，查询内容按发布时间获取
 ### 参数说明
+```
 - permissionId表示朋友圈访问权限类型
 - when(permissionId)
 - == 0 -> 所有用户都可见
 - == 1 -> 指定好友可见
 - == 2 -> 除了指定好友，其它都可见 
 ```
+```
 ### 添加动态API
 - @POST("api/user/dynamic")
-- String upLoadDynamic()
-- 参数1：@QueryMap Map<String,String> permissionArgs 
+- ApiResponse upLoadDynamic()
+- 参数1：@FieldMap Map<String,String> permissionArgs 
 - 参数2：@PartMap Map<String,RequestBody> contentArgs
 - permissionArgs表示访问权限列表,user_n表示指定的用户，user_n如果没有，则表示均可见
 - {account="用户账号",permissionId="权限类型",user_1="",user_2="",...}
 - contentArgs表示内容列表，包含图片、文字、视频上传的RequestBody
-  - POST请求，支持图文或者视频文字同时上传
+  - POST请求，支持图文或者视频文字同时上传,返回ApiResponse
+  - data = null
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
  ```
 ```
 ### 删除动态API
 - @DELETE("api/user/dynamic/{dynamicId}")
-- String deleteDynamic()
+- ApiResponse deleteDynamic()
 - 参数：@Path("dynamicId") Int
+  - DELETE请求，data=null,返回ApiResponse
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
 ```
 ```
 ### 查询动态API
 - @GET("api/user/dynamic")
-- List<PersonDynamic> getDynamics() 
+- ApiResponse<List<PersonDynamic>> getDynamics() 
 - 参数：@QueryMap  Map<String,String>  queryDynamicArgs   
 - 参数包含内容：{userAccount="本机用户名"}{friendAccount="查询哪个用户动态"},{limitNumbers="动态数量"}
 - 当{userAccount.isEmpty == true && friendAccount.isEmpty == true}时
@@ -158,61 +166,73 @@
 - 查询friendAccount用户按系统推荐的limitNumbers条动态  {关注页}
 - 当{userAccount.isEmpty == false && friendAccount.isEmpty == false}时
 - 查询friendAccount用户的limitNumbers条动态  {用户页}  
-  - GET请求，返回{List<PersonDynamic>}
+  - GET请求，返回{ApiResponse<List<PersonDynamic>>}
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
  ```
  
-## 评论模块 
+## 评论模块
+```
 ### 添加评论APi
 - @POST("api/user/comments")
-- String comments()
+- ApiResponse comments()
 - 参数1: @Body("message") String
-- 参数2: @QueryMap Map<String,String> commentsArgs
+- 参数2: @FieldMap Map<String,String> commentsArgs
 - 参数commentsArgs包含
 - {dynamicId="评论哪一条", userNickName="评论人的昵称"}
 - {friendNickName="被评论人的昵称"，time="评论时间"}
-  - POST请求，返回{String}
-  - 成功，设置String = "TC1101"后返回
-  - 失败,设置String = "TC1102" 后返回
+  - POST请求，data=null,返回ApiResponse
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+```
+```
 ### 查询评论APi 
 - @GET("api/user/comments")
-- String queryComments()
+- ApiResponse queryComments()
 - 参数: @QueryMap queryCommentsArgs
 - queryCommentsArgs主要有{myAccount="我的账号"，dynamicId="查询的动态id"，limitNumbers="获取评论的数量"}
   - 通过查询访问控制列表，获得可访问的用户账户列表,然后查询属于dynamicId的评论人
-  - GET请求，返回{String}
-  - 成功，设置String = "TC1201" + Content 后返回
-  - 失败，设置String = "TC1202" 后返回
-  - Content为CommentsMsg中的相关数据内容
+  - GET请求，data=null,返回ApiResponse
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+```
+```
 ### 删除评论APi
-- @DELETE("api/user/comments")
-- String deleteComments()
-- 参数：@Query("id") Int 
-  - Delete请求，删除指定评论，返回{String}
-  - 成功，设置String = "TC1301"后返回
-  - 失败，设置String = "TC1302"后返回
+- @DELETE("api/user/comment/{id}")
+- ApiResponse deleteComments()
+- 参数：@Path("id") Int 
+  - Delete请求，删除指定评论,data=null，返回ApiResponse
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+```
+
  ## 点赞模块
+ ```
  ### 点赞APi
  - @POST("api/user/like")
- - String addLike()
- - 参数：@QueryMap Map<String，String> likeArgs
+ - ApiResponse addLike()
+ - 参数：@FieldMap Map<String，String> likeArgs
  - likeArgs={dynamicId= "",account= ""}
- - POST请求，返回{String}
- - 成功，设置String = "TC1401"后返回
- - 失败，设置String = "TC1402"后返回
+ - POST请求，data=null,返回ApiResponse
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+```
+```
  ### 取消点赞APi
- - @DELETE("api/user/like")
- - String cancelLike()
- - 参数：@Query("dynamicId") String
-   - DELETE请求，删除指定dynamic的点赞，返回{String}
-   - 成功，设置String = "TC1501"后返回
-   - 失败，设置String = "TC1502"后返回
+ - @DELETE("api/user/like/{dynamicId}")
+ - ApiResponse cancelLike()
+ - 参数：@Path("dynamicId") String
+   - DELETE请求，删除指定dynamicId的点赞，data=null,返回ApiResponse
+   - 成功设置errorCode = 0
+   - 失败设置errorCode = 1
+```
+```
 ### 查询点赞APi
 - @GET("api/user/like")
-- String queryLike()
+- ApiResponse queryLike()
 - 参数：@QueryMap Map<String,String> queryLikeArgs
 - queryLikeArgs = {dynamicId="哪条动态",account = "谁请求查询"}
-  - GET请求，返回<String>
-  - 成功，设置String = "TC1601"+Content后返回
-  - 失败，设置String = "TC1602"后返回
-  - Content为Like表中的格式内容
- 
+  - GET请求，data=null,返回ApiResponse
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+```
