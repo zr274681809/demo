@@ -19,20 +19,20 @@
 ```
 
 ```
-数据请求返回结构
-class ApiResponse<T>(
-    var data: T?,    //返回的数据内容
-    var errorCode: Int,  //错误代码   
-    var errorMsg: String  //错误的详细描述（一般设置为""即可）
-)
+## 数据请求返回结构
+  - class ApiResponse<T>(
+  - var data: T?,    //返回的数据内容
+  - var errorCode: Int,  //错误代码   
+  - var errorMsg: String  //错误的详细描述（一般设置为""即可）
+  - )
 
-服务器端状态码设置 
-errorCode = {
-  0 -> 成功
-  1 -> 失败
-  2 -> 无此查询结果
-  other -> 其他情况，设置errorMsg以描述错误情况
-}
+## 服务器端状态码设置 
+  - errorCode = {
+  -  0 -> 成功
+  -  1 -> 失败
+  -  2 -> 无此查询结果
+  -  other -> 其他情况，设置errorMsg以描述错误情况，视情况而定，以下内容不再赘述
+  - }
 ```
 
 ### 数据库相关的模块见data/db/entity.kt
@@ -41,68 +41,86 @@ errorCode = {
 ```
 ### 登录Api
 - @GET("api/user")
-- User  login()
+- ApiResponse<User>  login()
 - 参数1：@Query("account") String
 - 参数2：@Query("password") String  
-  - GET请求，返回值{User}
-  - 设置好相应HTTP状态码
+  - GET请求，返回值ApiResponse<User>
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+  - 用户名或者密码错误即表示无此查询内容，设置errorCode = 2
 ```
 ```
 ### 注册Api 
 - @POST("api/user")
-- User register()
+- ApiResponse<User> register()
 - 参数：@Body("user") User
-  - POST请求，返回值{User}
-  - 设置好相应HTTP状态码
+  - POST请求，返回值ApiResponse<User>
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
 ```
 ```
 ### 注销Api
 - @DELETE("api/user/{account}")
-- void logout()
+- ApiResponse logout()
 - 参数：@Path("account") String
-  - DELETE请求,返回HTTP状态码
+  - DELETE请求 data设为null，返回ApiResponse
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+  
  ```
  ```
 ### 更新用户信息Api
 - @POST("api/user/{account}")
-- void updateUser()
+- ApiResponse updateUser()
 - 参数1：@Path("account") String
 - 参数2：@PartMap Map<String,RequestBody> contentArgs
-   - POST请求，支持图文同时上传
+   - POST请求，支持图文同时上传，data设为null，返回ApiResponse
+   - 成功设置errorCode = 0
+   - 失败设置errorCode = 1
 ```
 ```
 ### 查询好友APi
 - @GET("api/user/{userInfo}")
-- User queryUser()
+- ApiResponse<User> queryUser()
 - 参数：@Path("userInfo") String
-  - GET请求，userInfo可以是昵称，返回{User}
+  - GET请求，userInfo可以是昵称，ApiResponse<User>
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+  - 无此查询内容 errorCode = 2
 ```
 ```
 ### 添加好友附带确认APi
+- @FormUrlEncoded
 - @POST("api/user/{friendAccount}")
-- void addUserWithBack()
+- ApiResponse addUserWithBack()
 - 参数1: @Path("friendAccount") String
-- 参数2：@QueryMap Map<String,String> addWithBackArgs
+- 参数2：@FieldMap Map<String,String> addWithBackArgs
 - addWithBack包含{userAccount="用户账号",groupId="设置所属分组ID",isRequireUser="是否是发起人"}
-  - POST请求，friendAccount为对方账号，userAccount为用户账号
+  - POST请求，data=null ,返回ApiResponse
+  - friendAccount为对方账号，userAccount为用户账号
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
 ```  
 ```
 ### 删除好友Api
 - DELETE("api/user/{friendAccount}")
-- String  deleteFriend()
+- ApiResponse  deleteFriend()
 - 参数：@PATH("friendAccount") String
-  - DELETE请求，删除指定账户好友，返回{String}
-  - 成功，设置String = "601"后返回
-  - 失败，设置String = "602"后返回
+  - DELETE请求，删除指定账户好友，返回ApiResponse
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+  - 无此查询内容 errorCode = 2
 ```
-### 获取用户好友APi
-- @GET("api/user/lists")
-- String getFriends()
-- 参数1：@Query("account") String
-  - GET请求，获取account账户的好友，返回{String}
-  - 成功，设置String = "TC701" + Content 后返回
-  - 失败，设置String = "TC702"后返回
-  - Content为获取到的好友列表内容
+```
+### 获取指定用户的所有好友表APi
+- @GET("api/user/{account}/friendLists")
+- ApiResponse<List<UserRelation>> getFriends()
+- 参数1：@Path("account") String
+  - GET请求，获取account账户的所有好友关系列表，返回 ApiResponse<List<UserRelation>>
+  - 成功设置errorCode = 0
+  - 失败设置errorCode = 1
+  - 无此查询内容 errorCode = 2
+ ```
 ## 动态模块  
 ### 动态模块主要实现包括用户图文或者视频内容的上传和删除以及查询，发布内容按时间排序，查询内容按发布时间获取
 ### 参数说明
