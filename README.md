@@ -90,9 +90,9 @@
 - ApiResponse addUserWithBack()
 - 参数1: @Path("friendAccount") String
 - 参数2：@FieldMap Map<String,String> addWithBackArgs
-- addWithBack包含{userAccount="用户账号",groupId="设置所属分组ID",isRequireUser="是否是发起人"}
+- addWithBack包含{groupId="设置所属分组ID",isRequireUser="是否是发起人0是1不是"，memo="备注名"}
   - POST请求，data=null ,返回ApiResponse
-  - friendAccount为对方账号，userAccount为用户账号
+  - friendAccount为对方账号
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
 ```  
@@ -107,11 +107,10 @@
   - 无此查询内容 errorCode = 2
 ```
 ```
-### 获取指定用户的所有好友表APi
-- @GET("api/user/{account}/friendLists")
+### 获取当前用户的所有好友表APi
+- @GET("api/user/friendLists")
 - ApiResponse<List<UserRelation>> getFriends()
-- 参数1：@Path("account") String
-  - GET请求，获取account账户的所有好友关系列表，返回 ApiResponse<List<UserRelation>>
+  - GET请求，获取当前账户的所有好友关系列表，返回 ApiResponse<List<UserRelation>>
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
   - 无此查询内容 errorCode = 2
