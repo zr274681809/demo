@@ -1,6 +1,7 @@
 package com.example.demo.serviceImpl;
 
 import com.example.demo.entity.User;
+import com.example.demo.exception.BException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.MD5Utils;
@@ -12,7 +13,9 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-/** @author lyn 
+import java.util.List;
+
+/** @author lyn
  * @description //TODO 用户服务实现
  * @date 2020/4/7 15:19 
 */
@@ -31,7 +34,7 @@ public class UserServiceImpl implements UserService {
         }
         //初次跳转
         if(account==null || password==null || ("".equals(account) ||"".equals(password))){
-            return "TC002";
+            throw new BException(2,"用户名或密码为空");
         }
         password = MD5Utils.MD5(password);
         UsernamePasswordToken token = new UsernamePasswordToken(account,password);
@@ -49,10 +52,10 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectUserBynameAndPassword(account,password);
         if(currentUser.isAuthenticated()) {
             session.setAttribute("user",user);
-            return "TC001";
+            return "登录成功";
         }
         else{
-            return "TC003";
+            throw new BException(2,"用户名或密码错误");
         }
     }
 
@@ -69,10 +72,20 @@ public class UserServiceImpl implements UserService {
     public String register(User user) {
         user.setPassword(MD5Utils.MD5(user.getPassword()));
         boolean b=  userMapper.insertNewOne(user);
-        if (b){
-            return "TC101";
+        if (!b){
+            throw new BException(1,"注册失败");
         }
-        return "TC102";
+        return "注册成功";
+    }
+
+    @Override
+    public String updateUser(User user) {
+        return null;
+    }
+
+    @Override
+    public List<User> selectByUserNameOrNickName(String userInfo) {
+        return null;
     }
 
 }
