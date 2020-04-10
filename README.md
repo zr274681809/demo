@@ -70,11 +70,11 @@
  ```
  ```
 ### 更新用户信息Api
-- @POST("api/user/{account}")
+- PUT("api/user/{account}")
 - ApiResponse updateUser()
 - 参数1：@Path("account") String
 - 参数2：@PartMap Map<String,RequestBody> contentArgs
-   - POST请求，支持图文同时上传，data设为null，返回ApiResponse
+   - PUT，支持图文同时上传，data设为null，返回ApiResponse
    - 成功设置errorCode = 0
    - 失败设置errorCode = 1
 ```
