@@ -60,12 +60,7 @@
 ```
 ```
 ### 注销Api
-- @DELETE("api/user/{account}")
-- ApiResponse logout()
-- 参数：@Path("account") String
-  - DELETE请求 data设为null，返回ApiResponse
-  - 成功设置errorCode = 0
-  - 失败设置errorCode = 1
+- /logout
   
  ```
  ```
