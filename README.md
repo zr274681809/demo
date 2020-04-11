@@ -13,8 +13,6 @@
   - userRelation 用户关系表，保存了用户之间的相互关系
   - commentsMsg   评论表 ,保存了所有用户评论信息
   - personDynamic  朋友动态表 ,保存了所有注册用户发出的朋友圈动态
-  - DynamicAccessShield 朋友圈屏蔽表
-  - DynamicAccessAllow 朋友圈开放表
   - like 朋友点赞表
 ```
 
