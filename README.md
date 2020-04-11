@@ -10,14 +10,37 @@
  ```
 ## 数据库表 
   - user   用户表，保存了用户相关信息
+  ------------------------------------------------
+    userId	
+    account	用户名
+    nickName	昵称
+    age	年龄
+    birthday	出生日期
+    headPortraitUrl	头像图片地址
+    phoneNumber	手机号码
+    password	密码
+    identifyNumber	身份证号码
+    sex	性别
+    hobby	爱好
+    introduce	自我介绍
+    stat	默认0可用1锁定
+    lastLoginTime	最后登录时间
+    isMember	普通设置为0 达人设置为1
+    privateModel	隐私模式
+    0表示开放，只要有人申请关注，就可以通过
+    1表示私密，需要申请并由用户本人确认后，才可以通过
+  --------------------------------------------------
+    
   - userRelation 用户关系表，保存了用户之间的相互关系
   - commentsMsg   评论表 ,保存了所有用户评论信息
   - personDynamic  朋友动态表 ,保存了所有注册用户发出的朋友圈动态
+  
   - like 朋友点赞表
   - chat 聊天记录表
   - userDynamicPermission 用户动态权限表
   - addFriendRecord 好友添加记录
 ```
+
 
 ```
 ## 数据请求返回结构
