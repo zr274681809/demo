@@ -5,7 +5,7 @@
   - 实现用户登陆，注册，设置用户基本信息包括昵称，年龄，头像，爱好等等
   - 实现用户发送自身动态信息，包括文字、图片以及视频动态信息的发表，类似微信朋友圈
   - 实现用户互相评论、点赞，参考微信朋友圈的评论和点赞。
-  - 实现好友查询，添加好友，按好友分组显示动态信息
+  - 实现好友查询，好友关注，好友权限管理，动态权限管理
  ```
  ```
 ## 数据库表 
@@ -14,6 +14,9 @@
   - commentsMsg   评论表 ,保存了所有用户评论信息
   - personDynamic  朋友动态表 ,保存了所有注册用户发出的朋友圈动态
   - like 朋友点赞表
+  - chat 聊天记录表
+  - userDynamicPermission 用户动态权限表
+  - addFriendRecord 好友添加记录
 ```
 
 ```
@@ -161,6 +164,28 @@
   - GET请求，返回{ApiResponse<List<PersonDynamic>>}
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
+ ### 推荐页
+   服务器根据全部用户动态ID的热度排序，随机获取动态权限为非私密的dynamicId以及userId。
+   若该dynamicId的private为0(开放)，直接获取该动态，存入数组
+   若该dynamicId的private为1（仅关注的人可见），先保存该动态，在userRelation中查找该dynamicId，其中friendAccount==发起请求用户的id时，将该动态存入数组。
+   若该dynamicId的private为2（自定义），先保存该动态，在userDynamicPermission中通过dynamicId进行查找
+     ------ 若查找到friendId == 申请人Id
+            当permission==0时，表示可看，随后将该条动态存入数组
+            当permission==1时，表示不可见，继续查找下一条
+     ------ 若没有查找到对应的申请人Id,但存在该dynamicId中的其他用户的
+            permission==0时，表示申请人被屏蔽，继续查找下一条
+            permission==1时，表示指定该申请人可见，将动态存入数组。
+  
+### 关注页 
+   服务器根据该申请人用户所关注好友中的动态ID的热度排序，随机获取动态权限为非私密的dynamicId以及userId。
+   若该dynamicId的private为0(开放)或者1(仅关注的人可见)时，直接获取该动态，存入数组
+   若该dynamicId的private为2（自定义）时，先保存该动态，在userDynamicPermission中通过dynamicId进行查找
+   ------ 若查找到friendId == 申请人Id
+          当permission==0时，表示可看，随后将该条动态存入数组
+          当permission==1时，表示不可见，继续查找下一条
+   ------ 若没有查找到对应的申请人Id,但存在该dynamicId中的其他用户的
+          permission==0时，表示申请人被屏蔽，继续查找下一条
+          permission==1时，表示指定该申请人可见，将动态存入数组。
  ```
  
 ## 评论模块
