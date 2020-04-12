@@ -135,12 +135,10 @@
 ### 登录Api
 --------------------------------------------
 - @GET("api/user")
-
-
-- ApiResponse<user>  login()
+- ApiResponse<User>  login()
 - 参数1：@Query("account") String
 - 参数2：@Query("password") String  
-  - GET请求，返回值ApiResponse<user>
+  - GET请求，返回值ApiResponse<User>
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
   - 用户名或者密码错误即表示无此查询内容，设置errorCode = 2
@@ -310,11 +308,11 @@
 ### 查询评论APi
 --------------------------------------------
 - @GET("api/user/comments")
-- ApiResponse queryComments()
+- ApiResponse<List<CommentsMsg>> queryComments()
 - 参数: @QueryMap queryCommentsArgs
 - queryCommentsArgs主要有{myAccount="我的账号"，dynamicId="查询的动态id"，limitNumbers="获取评论的数量"}
   - 通过查询访问控制列表，获得可访问的用户账户列表,然后查询属于dynamicId的评论人
-  - GET请求，data=null,返回ApiResponse
+  - GET请求，data=List<CommentsMsg>,返回ApiResponse<List<CommentsMsg>>
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
 --------------------------------------------
@@ -351,10 +349,10 @@
 ### 查询点赞APi
 --------------------------------------------
 - @GET("api/user/like")
-- ApiResponse queryLike()
+- ApiResponse<List<Like>> queryLike()
 - 参数：@QueryMap Map<String,String> queryLikeArgs
 - queryLikeArgs = {dynamicId="哪条动态",account = "谁请求查询"}
-  - GET请求，data=null,返回ApiResponse
+  - GET请求，data=null,返回ApiResponseList<Like>
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
 --------------------------------------------
