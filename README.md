@@ -210,17 +210,19 @@
   - 无此查询内容 errorCode = 2
 --------------------------------------------
 ## 动态模块  
+  --------------------------------------------
 ### 动态模块主要实现包括用户图文或者视频内容的上传和删除以及查询，发布内容按时间排序，查询内容按发布时间获取
-```
+--------------------------------------------
 ### 参数说明
+  --------------------------------------------
 - permissionId表示朋友圈访问权限类型
 - when(permissionId)
 - == 0 -> 所有用户都可见
 - == 1 -> 指定好友可见
 - == 2 -> 除了指定好友，其它都可见 
-```
-```
+--------------------------------------------
 ### 添加动态API
+  --------------------------------------------
 - @POST("api/user/dynamic")
 - ApiResponse upLoadDynamic()
 - 参数1：@FieldMap Map<String,String> permissionArgs 
@@ -232,18 +234,18 @@
   - data = null
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
- ```
-```
+--------------------------------------------
 ### 删除动态API
+  --------------------------------------------
 - @DELETE("api/user/dynamic/{dynamicId}")
 - ApiResponse deleteDynamic()
 - 参数：@Path("dynamicId") Int
   - DELETE请求，data=null,返回ApiResponse
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
-```
-```
+--------------------------------------------
 ### 查询动态API
+  --------------------------------------------
 - @GET("api/user/dynamic")
 - ApiResponse<List<PersonDynamic>> getDynamics() 
 - 参数：@QueryMap  Map<String,String>  queryDynamicArgs   
@@ -257,7 +259,9 @@
   - GET请求，返回{ApiResponse<List<PersonDynamic>>}
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
- ### 推荐页
+--------------------------------------------  
+### 推荐页
+--------------------------------------------
    服务器根据全部用户动态ID的热度排序，随机获取动态权限为非私密的dynamicId以及userId。
    若该dynamicId的private为0(开放)，直接获取该动态，存入数组
    若该dynamicId的private为1（仅关注的人可见），先保存该动态，在userRelation中查找该dynamicId，其中friendAccount==发起请求用户的id时，将该动态存入数组。
@@ -268,8 +272,9 @@
      ------ 若没有查找到对应的申请人Id,但存在该dynamicId中的其他用户的
             permission==0时，表示申请人被屏蔽，继续查找下一条
             permission==1时，表示指定该申请人可见，将动态存入数组。
-  
+ -------------------------------------------- 
 ### 关注页 
+  --------------------------------------------
    服务器根据该申请人用户所关注好友中的动态ID的热度排序，随机获取动态权限为非私密的dynamicId以及userId。
    若该dynamicId的private为0(开放)或者1(仅关注的人可见)时，直接获取该动态，存入数组
    若该dynamicId的private为2（自定义）时，先保存该动态，在userDynamicPermission中通过dynamicId进行查找
@@ -279,11 +284,12 @@
    ------ 若没有查找到对应的申请人Id,但存在该dynamicId中的其他用户的
           permission==0时，表示申请人被屏蔽，继续查找下一条
           permission==1时，表示指定该申请人可见，将动态存入数组。
- ```
+--------------------------------------------
  
 ## 评论模块
-```
+--------------------------------------------
 ### 添加评论APi
+--------------------------------------------
 - @POST("api/user/comments")
 - ApiResponse comments()
 - 参数1: @Body("message") String
@@ -294,9 +300,10 @@
   - POST请求，data=null,返回ApiResponse
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
-```
-```
-### 查询评论APi 
+--------------------------------------------
+
+### 查询评论APi
+--------------------------------------------
 - @GET("api/user/comments")
 - ApiResponse queryComments()
 - 参数: @QueryMap queryCommentsArgs
@@ -305,20 +312,20 @@
   - GET请求，data=null,返回ApiResponse
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
-```
-```
+--------------------------------------------
 ### 删除评论APi
+--------------------------------------------
 - @DELETE("api/user/comment/{id}")
 - ApiResponse deleteComments()
 - 参数：@Path("id") Int 
   - Delete请求，删除指定评论,data=null，返回ApiResponse
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
-```
-
+--------------------------------------------
  ## 点赞模块
- ```
+--------------------------------------------
  ### 点赞APi
+ --------------------------------------------
  - @POST("api/user/like")
  - ApiResponse addLike()
  - 参数：@FieldMap Map<String，String> likeArgs
@@ -326,18 +333,18 @@
  - POST请求，data=null,返回ApiResponse
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
-```
-```
+--------------------------------------------
  ### 取消点赞APi
+ --------------------------------------------
  - @DELETE("api/user/like/{dynamicId}")
  - ApiResponse cancelLike()
  - 参数：@Path("dynamicId") String
    - DELETE请求，删除指定dynamicId的点赞，data=null,返回ApiResponse
    - 成功设置errorCode = 0
    - 失败设置errorCode = 1
-```
-```
+--------------------------------------------
 ### 查询点赞APi
+--------------------------------------------
 - @GET("api/user/like")
 - ApiResponse queryLike()
 - 参数：@QueryMap Map<String,String> queryLikeArgs
@@ -345,4 +352,4 @@
   - GET请求，data=null,返回ApiResponse
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
-```
+--------------------------------------------
