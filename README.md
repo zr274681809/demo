@@ -172,9 +172,9 @@
 ### 查询好友APi
 --------------------------------------------
 - @GET("api/user/{userInfo}")
-- ApiResponse<User> queryUser()
+-  ApiResponse <List<User>> queryUser()
 - 参数：@Path("userInfo") String
-  - GET请求，userInfo可以是昵称，ApiResponse<User>
+  - GET请求，userInfo可以是昵称，ApiResponse<List<User>>
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
   - 无此查询内容 errorCode = 2
