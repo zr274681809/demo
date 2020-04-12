@@ -135,10 +135,12 @@
 ### 登录Api
 --------------------------------------------
 - @GET("api/user")
-- ApiResponse<User>  login()
+
+
+- ApiResponse<user>  login()
 - 参数1：@Query("account") String
 - 参数2：@Query("password") String  
-  - GET请求，返回值ApiResponse<User>
+  - GET请求，返回值ApiResponse<user>
   - 成功设置errorCode = 0
   - 失败设置errorCode = 1
   - 用户名或者密码错误即表示无此查询内容，设置errorCode = 2
