@@ -48,15 +48,17 @@
   
   #### commentsMsg   评论表 ,保存了所有用户评论信息
   --------------------------------------------------
-    id  评论id
-    dynamicId	动态id
-    userId		评论人
-    friendId 被评论人
-    Msg	消息内容
-    stat 评论类型 
-    likeCount 点赞统计
-    commentsCount 评论统计
-    times	评论时间
+  id  评论id
+  dynamicId 动态id
+  userId  评论人
+  friendId 被评论人
+  userNickName 评论人昵称
+  friendNickName 被评论人昵称 
+  Msg 消息内容
+  stat 评论类型 
+  likeCount 点赞统计
+  commentsCount 评论统计
+  times 评论时间
   --------------------------------------------------
   .
   
