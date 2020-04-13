@@ -53,6 +53,12 @@
             <if test="lastLoginTime!=null ">
                 lastLoginTime,
             </if>
+            <if test="isMember!=null ">
+                isMember,
+            </if>
+            <if test="privateModel!=null ">
+                privateModel,
+            </if>
         </trim>
 
         <trim prefix="value(" suffix=")" suffixOverrides=",">
@@ -97,6 +103,12 @@
             </if>
             <if test="lastLoginTime!=null ">
                 #{ lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isMember!=null ">
+                #{isMember,jdbcType=INTEGER},
+            </if>
+            <if test="privateModel!=null ">
+                #{ privateModel,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>

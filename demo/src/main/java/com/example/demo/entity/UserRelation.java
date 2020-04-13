@@ -11,9 +11,9 @@ public class UserRelation {
     //分组
     private Integer groupId;
     //屏蔽状态默认0未屏蔽1屏蔽
-    private Integer stat1;
+    private Integer canSeeMe;
     //不让看状态默认0可以看1不让看
-    private Integer stat2;
+    private Integer canSeeHe;
     //备注
     private String memo;
     @Override
@@ -22,8 +22,8 @@ public class UserRelation {
                 "userid=" + userid +
                 ", friendid=" + friendid +
                 ", groupId=" + groupId +
-                ", stat1=" + stat1 +
-                ", stat2=" + stat2 +
+                ", canSeeMe=" + canSeeMe +
+                ", canSeeHe=" + canSeeHe +
                 '}';
     }
 
@@ -51,21 +51,21 @@ public class UserRelation {
         this.groupId = groupId;
     }
 
-    public Integer getStat1() {
-        return stat1;
+    public Integer getcanSeeMe() {
+        return canSeeMe;
     }
 
-    public void setStat1(Integer stat1) {
-        this.stat1 = stat1;
+    public void setcanSeeMe(Integer canSeeMe) {
+        this.canSeeMe = canSeeMe;
     }
 
 
-    public Integer getStat2() {
-        return stat2;
+    public Integer getcanSeeHe() {
+        return canSeeHe;
     }
 
-    public void setStat2(Integer stat2) {
-        this.stat2 = stat2;
+    public void setcanSeeHe(Integer canSeeHe) {
+        this.canSeeHe = canSeeHe;
     }
 
     public String getMemo() {

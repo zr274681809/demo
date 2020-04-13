@@ -3,7 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Result;
 import com.example.demo.entity.User;
-import com.example.demo.service.AddFriendService;
+import com.example.demo.service.AddFriendRecordService;
 import com.example.demo.service.PersonDynamicService;
 import com.example.demo.service.UserRelationService;
 import com.example.demo.service.UserService;
@@ -34,8 +34,8 @@ public class ApiV1UserModel {
     @Resource
     UserRelationService userRelationService;
     @Resource
-    AddFriendService addFriendService;
-
+    AddFriendRecordService addFriendService;
+/*lyn begin */
     @RequestMapping(value = "/api/login",method = RequestMethod.GET)
     public Result login(String account, String password){
         return new Result<>(userService.login(account, password));
@@ -86,4 +86,5 @@ public class ApiV1UserModel {
     public Result getFriends(){
         return new Result<>(userRelationService.getFriends());
     }
+    /*lyn end */
 }

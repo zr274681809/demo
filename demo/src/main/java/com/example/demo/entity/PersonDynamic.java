@@ -28,6 +28,21 @@ public class PersonDynamic {
     //发布时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
     private Date submitsTime;
+    //用户的位置
+    private String location;
+    //完播次数统计
+    private Integer fullWatchCount;
+    //观看次数统计
+    private Integer backWatchCount;
+    //动态的火热程度
+    // 火热程度根据点赞数  评论数  完播次数 以及 回看次数 来计算
+    private Float heatDegree;
+    //隐私设置
+    //0表示开放
+    //1表示仅关注的人可见
+    //2表示自定义，需通过查询权限表获取访问权限
+    //3表示私密，仅自己可见
+    private Integer privateModel;
 
     @Override
     public String toString() {
@@ -40,6 +55,11 @@ public class PersonDynamic {
                 ", likesCount=" + likesCount +
                 ", commentsCount=" + commentsCount +
                 ", submitsTime=" + submitsTime +
+                ", location='" + location + '\'' +
+                ", fullWatchCount=" + fullWatchCount +
+                ", backWatchCount=" + backWatchCount +
+                ", heatDegree=" + heatDegree +
+                ", privateModel=" + privateModel +
                 '}';
     }
 
@@ -105,5 +125,45 @@ public class PersonDynamic {
 
     public void setSubmitsTime(Date submitsTime) {
         this.submitsTime = submitsTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Integer getFullWatchCount() {
+        return fullWatchCount;
+    }
+
+    public void setFullWatchCount(Integer fullWatchCount) {
+        this.fullWatchCount = fullWatchCount;
+    }
+
+    public Integer getBackWatchCount() {
+        return backWatchCount;
+    }
+
+    public void setBackWatchCount(Integer backWatchCount) {
+        this.backWatchCount = backWatchCount;
+    }
+
+    public Float getHeatDegree() {
+        return heatDegree;
+    }
+
+    public void setHeatDegree(Float heatDegree) {
+        this.heatDegree = heatDegree;
+    }
+
+    public Integer getPrivateModel() {
+        return privateModel;
+    }
+
+    public void setPrivateModel(Integer privateModel) {
+        this.privateModel = privateModel;
     }
 }

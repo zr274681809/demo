@@ -1,6 +1,6 @@
 package com.example.demo.serviceImpl;
 
-import com.example.demo.service.AddFriendService;
+import com.example.demo.service.AddFriendRecordService;
 import org.springframework.stereotype.Service;
 
 /** @author lyn
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
  * @date 2020/4/10 15:56
 */
 @Service
-public class AddFriendServiceImpl implements AddFriendService {
+public class AddFriendRecordServiceImpl implements AddFriendRecordService {
     @Override
     public String addUserWithBack(String friendAccount, Integer groupId, Integer isRequireUser, String memo) {
         return null;

@@ -6,7 +6,7 @@ import java.util.Date;
  * @description //TODO 添加好友实体类
  * @date 2020/4/10 15:50
 */
-public class AddFriend {
+public class AddFriendRecord {
     //发起用户
     private Integer userid;
     //接受用户

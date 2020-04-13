@@ -37,6 +37,30 @@ public class User {
     //最后登录时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
     private Date lastLoginTime;
+    //普通设置为0
+    //达人设置为1
+    private Integer isMember;
+    //隐私模式
+    //0表示开放，只要有人申请关注，就可以通过
+    //1表示私密，需要申请并由用户本人确认后，才可以通过
+    private Integer privateModel;
+
+
+    public Integer getIsMember() {
+        return isMember;
+    }
+
+    public void setIsMember(Integer isMember) {
+        this.isMember = isMember;
+    }
+
+    public Integer getPrivateModel() {
+        return privateModel;
+    }
+
+    public void setPrivateModel(Integer privateModel) {
+        this.privateModel = privateModel;
+    }
 
     @Override
     public String toString() {
@@ -55,6 +79,8 @@ public class User {
                 ", introduce='" + introduce + '\'' +
                 ", stat=" + stat +
                 ", lastLoginTime=" + lastLoginTime +
+                ", isMember=" + isMember +
+                ", privateModel=" + privateModel +
                 '}';
     }
 
