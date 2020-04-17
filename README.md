@@ -27,6 +27,9 @@
     hobby	爱好
     address 地址
     introduce	自我介绍
+    likeTotal 获赞数量
+    fansTotal 粉丝数量
+    focusTotal 关注朋友数量
     stat	默认0可用1锁定
     lastLoginTime	最后登录时间
     isMember	普通设置为0 达人设置为1
