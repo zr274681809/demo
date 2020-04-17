@@ -25,6 +25,7 @@
     identifyNumber	身份证号码
     sex	性别
     hobby	爱好
+    address 地址
     introduce	自我介绍
     stat	默认0可用1锁定
     lastLoginTime	最后登录时间
