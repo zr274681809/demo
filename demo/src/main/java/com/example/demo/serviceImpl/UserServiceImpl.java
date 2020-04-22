@@ -27,10 +27,10 @@ public class UserServiceImpl implements UserService {
     HttpSession session;
 
     @Override
-    public String login(String account, String password) {
+    public User login(String account, String password) {
         User user1 = (User) session.getAttribute("user");
         if (user1!=null){
-            return "已登录";
+            return user1;
         }
         //初次跳转
         if(account==null || password==null || ("".equals(account) ||"".equals(password))){
@@ -39,20 +39,15 @@ public class UserServiceImpl implements UserService {
         password = MD5Utils.MD5(password);
         UsernamePasswordToken token = new UsernamePasswordToken(account,password);
         Subject currentUser = SecurityUtils.getSubject();
-        try {
+
             //主体提交登录请求到SecurityManager
             currentUser.login(token);
-        }catch (IncorrectCredentialsException ice){
 
-        }catch(UnknownAccountException uae){
-
-        }catch (Exception e){
-        }
         currentUser.getSession().setTimeout(-1000L);
         User user = userMapper.selectUserBynameAndPassword(account,password);
         if(currentUser.isAuthenticated()) {
             session.setAttribute("user",user);
-            return "登录成功";
+            return user;
         }
         else{
             throw new BException(2,"用户名或密码错误");

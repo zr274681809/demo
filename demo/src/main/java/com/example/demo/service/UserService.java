@@ -13,7 +13,7 @@ public interface UserService {
      * @parme [account, password]
      * @return com.example.entity.User
     */
-    String login(String account, String password);
+    User login(String account, String password);
     /** @description //TODO 权限验证获取用户
      * @parme [username]
      * @return com.example.demo.entity.User

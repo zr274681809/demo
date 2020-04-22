@@ -41,7 +41,7 @@ public class ApiV1UserModel {
         return new Result<>(userService.login(account, password));
     }
 
-    @RequestMapping(value = "/api/user",method = RequestMethod.POST)
+    @RequestMapping(value = "/api/register",method = RequestMethod.POST)
     public Result register(User user){
         return new Result<>(userService.register(user));
     }

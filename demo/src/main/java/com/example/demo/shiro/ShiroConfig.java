@@ -92,7 +92,7 @@ public class ShiroConfig {
 
     /**
      * 配置Shiro的Web过滤器，拦截浏览器请求并交给SecurityManager处理
-     * @return
+     *
      */
 
     @Bean("shiroFilterFactoryBean")
@@ -109,6 +109,7 @@ public class ShiroConfig {
         filterChainMap.put("/logout","logout");
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问,先配置anon再配置authc。
         filterChainMap.put("/api/login","anon");
+        filterChainMap.put("/api/register","anon");
         filterChainMap.put("/api/user/dynamic","anon");
    /*     filterChainMap.put("/inventory/login","anon");
         filterChainMap.put("/templates/**","anon");
